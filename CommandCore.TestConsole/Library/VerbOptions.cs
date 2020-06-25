@@ -1,6 +1,6 @@
 namespace CommandCore.TestConsole.Library
 {
-    public abstract class Options
+    public abstract class VerbOptions
     {
         
     }

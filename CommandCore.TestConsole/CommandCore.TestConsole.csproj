@@ -6,10 +6,4 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Folder Include="Options" />
-      <Folder Include="Verbs" />
-      <Folder Include="Views" />
-    </ItemGroup>
-
 </Project>

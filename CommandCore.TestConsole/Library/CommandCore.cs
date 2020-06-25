@@ -1,5 +1,3 @@
-using System;
-
 namespace CommandCore.TestConsole.Library
 {
     public class CommandCore
@@ -7,6 +5,9 @@ namespace CommandCore.TestConsole.Library
         public static int Parse(string[] args)
         {
             // Todo return the exit code.
+            
+            
+            
             return 0;
         }
     }

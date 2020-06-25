@@ -1,6 +1,6 @@
 namespace CommandCore.TestConsole.Library
 {
-    public abstract class View
+    public abstract class VerbView
     {
         public abstract void RenderResponse();
     }
