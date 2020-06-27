@@ -6,7 +6,7 @@ namespace CommandCore.TestConsole
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Library.CommandCore.Parse(args);
         }
     }
 }
