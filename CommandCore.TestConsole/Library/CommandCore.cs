@@ -9,7 +9,6 @@ namespace CommandCore.TestConsole.Library
     {
         public static int Parse(string[] args)
         {
-
             var verbTypes = GetVerbTypes();
             Console.WriteLine(verbTypes.Select(a => a.FullName).Aggregate((a, b) => $"{a}, {b}"));
 

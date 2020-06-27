@@ -3,7 +3,7 @@ using CommandCore.TestConsole.Options;
 
 namespace CommandCore.TestConsole.Verbs
 {
-    public class AddVerb : Verb<AddOptions>
+    public class Add : Verb<AddOptions>
     {
         
     }
