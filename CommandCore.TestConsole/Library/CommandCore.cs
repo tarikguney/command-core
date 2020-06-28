@@ -11,8 +11,16 @@ namespace CommandCore.TestConsole.Library
         {
             var verbTypes = GetVerbTypes();
             Console.WriteLine(verbTypes.Select(a => a.FullName).Aggregate((a, b) => $"{a}, {b}"));
-
+            var parsedVerb = GetDummyVerb();
+            var verb = FindVerbTypeByName(parsedVerb.VerbName, verbTypes);
+            
             return 0;
+        }
+
+        private static Type? FindVerbTypeByName(string verbName, IReadOnlyList<Type> allTypes)
+        {
+            return allTypes.FirstOrDefault(t =>
+                t.FullName.Equals(verbName, StringComparison.InvariantCultureIgnoreCase));
         }
 
         private static IReadOnlyList<Type> GetVerbTypes() => Assembly.GetExecutingAssembly().GetTypes()
@@ -20,7 +28,7 @@ namespace CommandCore.TestConsole.Library
                         a.BaseType.GetGenericTypeDefinition() == typeof(Verb<>)).ToList();
 
 
-        public static ParsedVerb GetDummyVerb => new ParsedVerb()
+        private static ParsedVerb GetDummyVerb() => new ParsedVerb()
         {
             Options = new Dictionary<string, string>()
             {
