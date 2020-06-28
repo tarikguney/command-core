@@ -16,12 +16,8 @@ namespace CommandCore.TestConsole.Library
             var parsedVerb = GetDummyVerb();
             var verbType = FindVerbTypeByName(parsedVerb.VerbName, verbTypes);
             var optionsType = GetAssociatedOptionsType(verbType);
-            
-            // TODO Create an instance of the Verb type and set the Options property with the new Options instance.
             var options = CreatePopulatedOptionsObject(optionsType, parsedVerb);
-
             SetOptionsOfVerb(verbType, options);
-
             return 0;
         }
 
