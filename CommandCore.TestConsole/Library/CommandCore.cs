@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace CommandCore.TestConsole.Library
 {
@@ -13,17 +14,39 @@ namespace CommandCore.TestConsole.Library
             var verbTypes = GetVerbTypes();
             Console.WriteLine(verbTypes.Select(a => a.FullName).Aggregate((a, b) => $"{a}, {b}"));
             var parsedVerb = GetDummyVerb();
-            var verb = FindVerbTypeByName(parsedVerb.VerbName, verbTypes);
-            var optionsType = GetOptionsType(verb);
+            var verbType = FindVerbTypeByName(parsedVerb.VerbName, verbTypes);
+            var optionsType = GetAssociatedOptionsType(verbType);
             
-            // TODO Create an instance of OptionsType and set the properties with CLI arguments using reflection.
             // TODO Create an instance of the Verb type and set the Options property with the new Options instance.
-            
+            var options = CreatePopulatedOptionsObject(optionsType, parsedVerb);
+
+            SetOptionsOfVerb(verbType, options);
 
             return 0;
         }
 
-        private static Type GetOptionsType(Type verb)
+        private static void SetOptionsOfVerb(Type verbType, VerbOptions options)
+        {
+            var verb = Activator.CreateInstance(verbType);
+            var optionsPropertyInfo = verbType.GetProperty("Options");
+            optionsPropertyInfo.SetValue(verb, options);
+        }
+
+        private static VerbOptions CreatePopulatedOptionsObject(Type optionsType, ParsedVerb parsedVerb)
+        {
+            var options = (VerbOptions) Activator.CreateInstance(optionsType);
+            var optionProperties =
+                optionsType.GetProperties(BindingFlags.SetProperty & BindingFlags.Public & BindingFlags.Instance);
+            foreach (var propertyInfo in optionProperties)
+            {
+                // TODO: argument must be lower case for both CLI argument and the property name to match.
+                propertyInfo.SetValue(options, parsedVerb.Options[propertyInfo.Name.ToLower()]);
+            }
+
+            return options;
+        }
+
+        private static Type GetAssociatedOptionsType(Type verb)
         {
             return verb.BaseType.GetGenericArguments()[0];;
         }
