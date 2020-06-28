@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace CommandCore.TestConsole.Library
 {
-    public class CommandCore
+    public static class CommandCore
     {
         public static int Parse(string[] args)
         {
@@ -20,5 +20,23 @@ namespace CommandCore.TestConsole.Library
                         a.BaseType.GetGenericTypeDefinition() == typeof(Verb<>)).ToList();
 
 
+        public static ParsedVerb GetDummyVerb => new ParsedVerb()
+        {
+            Options = new Dictionary<string, string>()
+            {
+                {"name", "Tarik"},
+                {"lastname", "guney"}
+            },
+            VerbName = "person"
+        };
+
+        public class ParsedVerb
+        {
+            public string VerbName { get; set; }
+
+            // ToDo: Ideally the value should be anything. I don't know how I should design this right now. 
+            // The reason is simple: Some arguments are flag attributes.
+            public IReadOnlyDictionary<string, string> Options { get; set; }
+        }
     }
 }
