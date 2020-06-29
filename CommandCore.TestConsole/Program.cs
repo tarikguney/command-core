@@ -1,12 +1,10 @@
-﻿using System;
-
-namespace CommandCore.TestConsole
+﻿namespace CommandCore.TestConsole
 {
     class Program
     {
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
-            Library.CommandCore.Parse(args);
+           return Library.CommandCore.Parse(args);
         }
     }
 }
