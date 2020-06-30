@@ -1,4 +1,4 @@
-namespace CommandCore.TestConsole.Library
+namespace CommandCore.Library
 {
     public abstract class Verb<T>: IVerb where T: VerbOptions
     {

@@ -6,4 +6,12 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="Library" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CommandCore.Library\CommandCore.Library.csproj" />
+    </ItemGroup>
+
 </Project>

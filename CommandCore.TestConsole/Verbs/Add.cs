@@ -1,5 +1,5 @@
 using System;
-using CommandCore.TestConsole.Library;
+using CommandCore.Library;
 using CommandCore.TestConsole.Options;
 
 namespace CommandCore.TestConsole.Verbs

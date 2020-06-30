@@ -1,4 +1,4 @@
-using CommandCore.TestConsole.Library;
+using CommandCore.Library;
 
 namespace CommandCore.TestConsole.Options
 {
