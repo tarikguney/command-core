@@ -1,8 +1,12 @@
-# Command Core
+# What is CommandCore?
 
 A simple command line parsing library that helps creating MVC like command line applications.
 
 There are many command line parsing libraries out there but most of them are unnecessarily complicated. They require so much boilerplate code; whereas, Command Core library uses an already well-understood design pattern: MVC. It is easy to start with and reason about it.
+
+### Under active development!
+> This library has not been published yet. The readme.md file explains the vision of this library. It may change in the future. However, the idea of this library will always be the same: Make CLI development easier and simpler.
+
 
 ## How to use it?
 
