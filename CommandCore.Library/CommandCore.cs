@@ -1,6 +1,4 @@
 using System;
-using System.Linq;
-using System.Reflection;
 
 namespace CommandCore.Library
 {
@@ -10,15 +8,18 @@ namespace CommandCore.Library
         {
             ICommandParser commandParser = new DummyCommandParser();
             var parsedVerb = commandParser.ParseCommand(args);
-            
+
             IVerbFinder verbTypeFinder = new VerbFinder();
             var verbType = verbTypeFinder.FindVerbTypeInExecutingAssembly(parsedVerb.VerbName!);
+
+            IOptionsParser optionsParser = new OptionsParser();
+
+            var optionsType = optionsParser.GetAssociatedOptionsType(verbType!);
+            var options = optionsParser.CreatePopulatedOptionsObject(optionsType, parsedVerb);
             
-            // TODO extract the functionality into their own classes for better isolation for unit testing.
-            var optionsType = GetAssociatedOptionsType(verbType!);
-            var options = CreatePopulatedOptionsObject(optionsType, parsedVerb);
             var verb = SetOptionsOfVerb(verbType!, options);
             verb.Run();
+            
             return 0;
         }
 
@@ -28,27 +29,6 @@ namespace CommandCore.Library
             var optionsPropertyInfo = verbType.GetProperty("Options");
             optionsPropertyInfo!.SetValue(verb, options);
             return (IVerb) verb!;
-        }
-
-        private static VerbOptions CreatePopulatedOptionsObject(Type optionsType, ParsedVerb parsedVerb)
-        {
-            var options = (VerbOptions?) Activator.CreateInstance(optionsType);
-            var optionProperties =
-                optionsType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-            
-            foreach (var propertyInfo in optionProperties.Where(a => a.CanRead && a.CanWrite))
-            {
-                var parameterNameAttribute = propertyInfo.GetCustomAttribute<ParameterNameAttribute>();
-                var argumentName = parameterNameAttribute?.Name ?? propertyInfo.Name;
-                propertyInfo.SetValue(options, parsedVerb.Options![argumentName]);
-            }
-
-            return options!;
-        }
-
-        private static Type GetAssociatedOptionsType(Type verb)
-        {
-            return verb.BaseType!.GetGenericArguments()[0];
         }
     }
 }
