@@ -33,13 +33,14 @@ namespace CommandCore.Library
         private static VerbOptions CreatePopulatedOptionsObject(Type optionsType, ParsedVerb parsedVerb)
         {
             var options = (VerbOptions?) Activator.CreateInstance(optionsType);
-            // Todo I am still not a hundred percent sure if the BindingsFlags logic is correct. It works though.
             var optionProperties =
                 optionsType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            
             foreach (var propertyInfo in optionProperties.Where(a => a.CanRead && a.CanWrite))
             {
-                // TODO: argument must be lower case for both CLI argument and the property name to match.
-                propertyInfo.SetValue(options, parsedVerb.Options![propertyInfo.Name]);
+                var parameterNameAttribute = propertyInfo.GetCustomAttribute<ParameterNameAttribute>();
+                var argumentName = parameterNameAttribute?.Name ?? propertyInfo.Name;
+                propertyInfo.SetValue(options, parsedVerb.Options![argumentName]);
             }
 
             return options!;
