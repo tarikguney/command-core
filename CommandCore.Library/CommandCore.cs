@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -9,9 +8,13 @@ namespace CommandCore.Library
     {
         public static int Parse(string[] args)
         {
-            var verbTypes = GetVerbTypes();
-            var parsedVerb = GetDummyVerb();
-            var verbType = FindVerbTypeByName(parsedVerb.VerbName!, verbTypes);
+            ICommandParser commandParser = new DummyCommandParser();
+            var parsedVerb = commandParser.ParseCommand(args);
+            
+            IVerbFinder verbTypeFinder = new VerbFinder();
+            var verbType = verbTypeFinder.FindVerbTypeInExecutingAssembly(parsedVerb.VerbName!);
+            
+            // TODO extract the functionality into their own classes for better isolation for unit testing.
             var optionsType = GetAssociatedOptionsType(verbType!);
             var options = CreatePopulatedOptionsObject(optionsType, parsedVerb);
             var verb = SetOptionsOfVerb(verbType!, options);
@@ -45,35 +48,6 @@ namespace CommandCore.Library
         private static Type GetAssociatedOptionsType(Type verb)
         {
             return verb.BaseType!.GetGenericArguments()[0];
-        }
-
-        private static Type? FindVerbTypeByName(string verbName, IReadOnlyList<Type> allTypes)
-        {
-            return allTypes.FirstOrDefault(t =>
-                t!.Name!.Equals(verbName, StringComparison.InvariantCultureIgnoreCase));
-        }
-
-        private static IReadOnlyList<Type> GetVerbTypes() => Assembly.GetExecutingAssembly().GetTypes()
-            .Where(a => a.BaseType != null && a.BaseType!.IsGenericType &&
-                        a.BaseType.GetGenericTypeDefinition() == typeof(Verb<>)).ToList();
-
-        private static ParsedVerb GetDummyVerb() => new ParsedVerb()
-        {
-            Options = new Dictionary<string, string>()
-            {
-                {"FirstName", "Tarik"},
-                {"LastName", "Guney"}
-            },
-            VerbName = "add"
-        };
-
-        public class ParsedVerb
-        {
-            public string? VerbName { get; set; }
-
-            // ToDo: Ideally the value should be anything. I don't know how I should design this right now. 
-            // The reason is simple: Some arguments are flag attributes.
-            public IReadOnlyDictionary<string, string>? Options { get; set; }
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace CommandCore.TestConsole
+﻿using System;
+
+namespace CommandCore.TestConsole
 {
     class Program
     {
