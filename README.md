@@ -17,6 +17,12 @@ Let's start with a simple command:
 ```bash
 helloworld.exe add --name tarik --lastname guney
 ```
+If we disect the command call above, these would be the pieces of it:
+- `add`: The verb of the command. It is also known as `subcommand`.
+- `--name` and `--lastname`: These are the paramter names, or option names. 
+- `tarik` and `guney`: These are the arguments or parameter values.
+
+You will see that these names are used in the library classes, as well.
 
 You can write represent and parse the command with the following classes:
 
