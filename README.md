@@ -12,12 +12,36 @@ Let's start with a simple command:
 helloworld.exe add --name tarik --lastname guney
 ```
 
-The following command needs these classes `AddVerb<AddOptions>`, `AddOptions`, `AddVerbView`.
+You can write represent and parse the command with the following classes:
 
-- `AddVerb<AddOptions>` is the equivalent of a controller in MVC. It inherits the `Verb` abstract class. You specify the type of the options class as a generic parameter.
-- `AddOptions` is the model class which includes all of the possible options with attributes like `[Required]`, `[DefaultValue("test")]`, `[Alias("-v")]` for its properties. You can also customize the name of the properties with `[DisplayName("--add-person")]` if you want to use a different option name.
-- `AddVerbView` is the class that helps you customize the output that is written to the console or any other place. It inherits from `VerbView` class.
+```c#
+[VerbName("add")]
+public class Add : Verb<AddOptions>
+{
+    public VerbView Run(){
+        return AddView(Options);
+    }
+}
 
+public class AddView : VerbView
+{
+    public override StringBuilder Write(){
+        var outputBuilder = new StringBuilder();
+        builder.Append($"Name: {Model.FirstName} {Environment.NewLine}");
+        builder.Append($"Name: {Model.LastName} {Environment.NewLine}");
+        return outputBuilder;
+    }
+}
+
+public class AddOptions : VerbOptions
+{
+    [InputName("firstname")]
+    public string? FirstName {get;set;}
+    
+    [InputName("lastname")]
+    public string? LastName {get;set;}
+}
+```
 
 To activate this library, you need to add the following code to the `Main` function in `Program.cs` file:
 
