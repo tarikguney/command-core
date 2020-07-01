@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CommandCore.Library.Interfaces;
 
 namespace CommandCore.Library
 {

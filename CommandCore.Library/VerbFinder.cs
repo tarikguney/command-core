@@ -1,10 +1,11 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using CommandCore.Library.Interfaces;
 
 namespace CommandCore.Library
 {
-    public class VerbFinder  : IVerbFinder
+    public class VerbFinder : IVerbFinder
     {
         public Type? FindVerbTypeInExecutingAssembly(string verbName)
         {
@@ -12,7 +13,7 @@ namespace CommandCore.Library
             var allTypes = Assembly.GetEntryAssembly()!.GetTypes()
                 .Where(a => a.BaseType != null && a.BaseType!.IsGenericType &&
                             a.BaseType.GetGenericTypeDefinition() == typeof(Verb<>)).ToList();
-            
+
             return allTypes.FirstOrDefault(t =>
                 t!.Name!.Equals(verbName, StringComparison.InvariantCultureIgnoreCase));
         }

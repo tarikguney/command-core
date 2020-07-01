@@ -1,4 +1,5 @@
 using System;
+using CommandCore.Library.Interfaces;
 
 namespace CommandCore.Library
 {

@@ -1,6 +1,6 @@
 using System;
 
-namespace CommandCore.Library
+namespace CommandCore.Library.Interfaces
 {
     public interface IVerbFinder
     {
