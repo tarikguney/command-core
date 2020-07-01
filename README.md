@@ -1,5 +1,7 @@
 # What is CommandCore?
 
+![](image.png)
+
 A simple command line parsing library that helps creating CLI apps using MVC pattern.
 
 There are many command line parsing libraries out there, but most of them are unnecessarily complicated. Command Core library is built using a well-understood desing pattern: MVC. It cleanly separates the building blocks and makes the CLI development a scalable, extensible, and more importantly simpler endeavor. 
