@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using CommandCore.Library.Attributes;
 using CommandCore.Library.Interfaces;
 
 namespace CommandCore.Library
@@ -14,8 +15,13 @@ namespace CommandCore.Library
                 .Where(a => a.BaseType != null && a.BaseType!.IsGenericType &&
                             a.BaseType.GetGenericTypeDefinition() == typeof(Verb<>)).ToList();
 
-            return allTypes.FirstOrDefault(t =>
-                t!.Name!.Equals(verbName, StringComparison.InvariantCultureIgnoreCase));
+            return allTypes.FirstOrDefault(verbType =>
+            {
+                var verbNameAttribute = verbType.GetCustomAttribute<VerbNameAttribute>();
+                var verbTypeName = verbNameAttribute?.Name ?? verbType.Name;
+                // To keep the naming predictable and consistent, making a case-sensitive comparison here.
+                return verbTypeName.Equals(verbName);
+            });
         }
     }
 }

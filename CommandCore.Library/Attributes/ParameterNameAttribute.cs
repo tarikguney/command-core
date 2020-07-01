@@ -1,6 +1,6 @@
 using System;
 
-namespace CommandCore.Library
+namespace CommandCore.Library.Attributes
 {
     public class ParameterNameAttribute: Attribute
     {

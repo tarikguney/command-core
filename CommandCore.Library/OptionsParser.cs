@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using CommandCore.Library.Attributes;
 using CommandCore.Library.Interfaces;
 
 namespace CommandCore.Library
