@@ -15,12 +15,12 @@ namespace CommandCore.Library
             _serviceProvider.Register<IVerbTypeFinder, VerbTypeFinder>();
             _serviceProvider.Register<IOptionsParser, OptionsParser>();
             _serviceProvider.Register<IEntryAssemblyProvider, BasicEntryAssemblyProvider>();
-            _serviceProvider.Register<ICommandCodeVerbRunner, CommandCodeVerbRunner>();
+            _serviceProvider.Register<ICommandCoreVerbRunner, CommandCoreVerbRunner>();
         }
 
         public int Parse(string[] args)
         {
-            return _serviceProvider.Resolve<ICommandCodeVerbRunner>().Run(args);
+            return _serviceProvider.Resolve<ICommandCoreVerbRunner>().Run(args);
         }
     }
 }

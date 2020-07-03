@@ -3,13 +3,13 @@ using CommandCore.Library.Interfaces;
 
 namespace CommandCore.Library
 {
-    internal class CommandCodeVerbRunner : ICommandCodeVerbRunner
+    internal class CommandCoreVerbRunner : ICommandCoreVerbRunner
     {
         private readonly ICommandParser _commandParser;
         private readonly IVerbTypeFinder _verbTypeFinder;
         private readonly IOptionsParser _optionsParser;
 
-        public CommandCodeVerbRunner(ICommandParser commandParser, IVerbTypeFinder verbTypeFinder,
+        public CommandCoreVerbRunner(ICommandParser commandParser, IVerbTypeFinder verbTypeFinder,
             IOptionsParser optionsParser)
         {
             _commandParser = commandParser;
