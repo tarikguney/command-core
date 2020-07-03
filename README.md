@@ -1,4 +1,4 @@
-![Build Project](https://github.com/tarikguney/command-core/workflows/Build%20Project/badge.svg?branch=master)
+![Build Project](https://github.com/tarikguney/command-core/workflows/Build%20Project/badge.svg?branch=master) ![Unit Tests](https://github.com/tarikguney/command-core/workflows/Unit%20Tests/badge.svg)
 
 # What is CommandCore?
 
