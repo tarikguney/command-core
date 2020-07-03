@@ -1,6 +1,4 @@
-![Build Project](https://github.com/tarikguney/command-core/workflows/Build%20Project/badge.svg?branch=master) ![Unit Tests](https://github.com/tarikguney/command-core/workflows/Unit%20Tests/badge.svg)
-
-# What is CommandCore?
+![Build Project](https://github.com/tarikguney/command-core/workflows/Build%20Project/badge.svg?branch=master)
 
 A simple command line parsing library that helps creating CLI apps using MVC pattern.
 
