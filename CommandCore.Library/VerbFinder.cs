@@ -13,7 +13,7 @@ namespace CommandCore.Library
             // TODO using getentryassembly might not be the perfect solution. Needs more testing here.
             var allTypes = Assembly.GetEntryAssembly()!.GetTypes()
                 .Where(a => a.BaseType != null && a.BaseType!.IsGenericType &&
-                            a.BaseType.GetGenericTypeDefinition() == typeof(VerbRunnerBase<>)).ToList();
+                            a.BaseType.GetGenericTypeDefinition() == typeof(VerbBase<>)).ToList();
 
             return allTypes.FirstOrDefault(verbType =>
             {
