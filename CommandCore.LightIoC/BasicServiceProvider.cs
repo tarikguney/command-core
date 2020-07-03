@@ -32,6 +32,7 @@ namespace CommandCore.LightIoC
                 throw new Exception($"There must be only one constructor method defined for type {registeredType.FullName}");
             }
 
+            // This is not really possible since if nothing is defined, the parameterless constructor becomes the default one.
             if (constructors.Length == 0)
             {
                 throw new Exception($"There could not be found any constructor method for {registeredType.FullName}");

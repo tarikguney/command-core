@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using CommandCore.LightIoC.UnitTests.TestTypes;
 using Xunit;
 
@@ -31,6 +32,16 @@ namespace CommandCore.LightIoC.UnitTests
             serviceProvider.Register<IChildThreeWithTwoConstructors, ChildThreeWithTwoConstructors>();
 
             Assert.Throws<Exception>(() => serviceProvider.Resolve<IChildThreeWithTwoConstructors>());
+        }
+
+        [Fact]
+        public void When_Not_Registered_Resolution_Throws_Key_Not_Found_Exception()
+        {
+            var serviceProvider = new BasicServiceProvider();
+            serviceProvider.Register<IRootType, RootType>();
+            serviceProvider.Register<IChildOne, ChildOne>();
+
+            Assert.Throws<KeyNotFoundException>(() => serviceProvider.Resolve<IRootType>());
         }
     }
 }
