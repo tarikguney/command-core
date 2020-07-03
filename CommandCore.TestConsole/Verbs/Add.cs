@@ -6,7 +6,7 @@ using CommandCore.TestConsole.Options;
 namespace CommandCore.TestConsole.Verbs
 {
     [VerbName("add")]
-    public class Add : VerbBase<AddOptionsBase>
+    public class Add : VerbRunnerBase<AddOptionsBase>
     {
         public override void Run()
         {

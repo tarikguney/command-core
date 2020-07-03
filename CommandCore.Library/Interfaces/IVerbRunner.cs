@@ -1,6 +1,6 @@
 namespace CommandCore.Library.Interfaces
 {
-    public interface IVerb
+    public interface IVerbRunner
     {
         void Run();
     }

@@ -24,12 +24,12 @@ namespace CommandCore.Library
             return 0;
         }
 
-        private static IVerb SetOptionsOfVerb(Type verbType, VerbOptionsBase optionsBase)
+        private static IVerbRunner SetOptionsOfVerb(Type verbType, VerbOptionsBase optionsBase)
         {
             var verb = Activator.CreateInstance(verbType);
             var optionsPropertyInfo = verbType.GetProperty("Options");
             optionsPropertyInfo!.SetValue(verb, optionsBase);
-            return (IVerb) verb!;
+            return (IVerbRunner) verb!;
         }
     }
 }
