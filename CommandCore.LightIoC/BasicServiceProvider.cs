@@ -12,6 +12,10 @@ namespace CommandCore.LightIoC
 
         public void Register<S, T>() where T : S
         {
+            if (typeof(T).IsAbstract)
+            {
+                throw new InvalidOperationException($"Type {typeof(T).FullName} may not be abstract. Abstract classes cannot be instantiated, hence not allowed to be registered.");
+            }
             _typeRegistry[typeof(S)] = typeof(T);
         }
 
@@ -25,6 +29,11 @@ namespace CommandCore.LightIoC
         /// </summary>
         private object CreateInstance(Type type)
         {
+            if (!_typeRegistry.ContainsKey(type))
+            {
+                throw new KeyNotFoundException($"Type {type.FullName} is not registered to the LightIoC container.");
+            }
+            
             var registeredType = _typeRegistry[type];
             var constructors = registeredType.GetConstructors(BindingFlags.Instance | BindingFlags.Public);
             if (constructors.Length > 1)

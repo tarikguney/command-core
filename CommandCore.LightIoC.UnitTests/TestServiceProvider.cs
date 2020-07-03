@@ -43,5 +43,12 @@ namespace CommandCore.LightIoC.UnitTests
 
             Assert.Throws<KeyNotFoundException>(() => serviceProvider.Resolve<IRootType>());
         }
+
+        [Fact]
+        public void When_Registering_Abstract_Service_Class_Throws_Invalid_Operations_Exception()
+        {
+            var serviceProvider = new BasicServiceProvider();
+            Assert.Throws<InvalidOperationException>(() => serviceProvider.Register<IAnAbstractType, AnAbstractType>());
+        }
     }
 }
