@@ -28,14 +28,14 @@ You can represent and parse the command above with the following classes:
 
 ```c#
 [VerbName("add")]
-public class Add : Verb<AddOptions>
+public class Add : VerbBase<AddOptions>
 {
     public VerbView Run(){
         return AddView(Options);
     }
 }
 
-public class AddView : VerbView
+public class AddView : VerbViewBase
 {
     public override StringBuilder Write(){
         var outputBuilder = new StringBuilder();
@@ -45,7 +45,7 @@ public class AddView : VerbView
     }
 }
 
-public class AddOptions : VerbOptions
+public class AddOptions : VerbOptionsBase
 {
     [InputName("firstname")]
     public string? FirstName {get;set;}
