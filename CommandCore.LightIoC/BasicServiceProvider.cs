@@ -2,10 +2,11 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace CommandCore.LightIoC
 {
-    public class ServiceProvider : IServiceProvider
+    public class BasicServiceProvider : IServiceProvider
     {
         private readonly ConcurrentDictionary<Type, Type> _typeRegistry = new ConcurrentDictionary<Type, Type>();
 
@@ -22,15 +23,15 @@ namespace CommandCore.LightIoC
         private object CreateInstance(Type type)
         {
             var registeredType = _typeRegistry[type];
-            var constructors = registeredType.GetConstructors();
-            if (constructors.Length > 0)
+            var constructors = registeredType.GetConstructors(BindingFlags.Instance | BindingFlags.Public);
+            if (constructors.Length > 1)
             {
-                throw new Exception($"There must be only one constructor method defined for type {type.FullName}");
+                throw new Exception($"There must be only one constructor method defined for type {registeredType.FullName}");
             }
 
             if (constructors.Length == 0)
             {
-                throw new Exception($"There could not be found any constructor method for {type.FullName}");
+                throw new Exception($"There could not be found any constructor method for {registeredType.FullName}");
             }
 
             var injectedTypes = constructors[0].GetParameters().Select(a => a.ParameterType);
@@ -46,7 +47,7 @@ namespace CommandCore.LightIoC
                 instances.Add(CreateInstance(injectedType));
             }
 
-            return Activator.CreateInstance(registeredType, instances);
+            return constructors[0].Invoke(instances.ToArray());
         }
     }
 }
