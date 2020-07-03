@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandCore.UnitTests", "Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandCore.LightIoC", "CommandCore.LightIoC\CommandCore.LightIoC.csproj", "{BE18CD39-8C29-42BE-B5B3-592606A6E7D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandCore.LightIoC.UnitTests", "CommandCore.LightIoC.UnitTests\CommandCore.LightIoC.UnitTests.csproj", "{7FF822E4-3ECF-4250-AD5C-88F6E1BFD861}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{BE18CD39-8C29-42BE-B5B3-592606A6E7D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE18CD39-8C29-42BE-B5B3-592606A6E7D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE18CD39-8C29-42BE-B5B3-592606A6E7D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FF822E4-3ECF-4250-AD5C-88F6E1BFD861}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FF822E4-3ECF-4250-AD5C-88F6E1BFD861}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FF822E4-3ECF-4250-AD5C-88F6E1BFD861}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FF822E4-3ECF-4250-AD5C-88F6E1BFD861}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
