@@ -6,6 +6,6 @@ namespace CommandCore.Library.Interfaces
     {
         Type GetAssociatedOptionsType(Type verbType);
 
-        VerbOptions CreatePopulatedOptionsObject(Type optionsType, ParsedVerb parsedVerb);
+        VerbOptionsBase CreatePopulatedOptionsObject(Type optionsType, ParsedVerb parsedVerb);
     }
 }

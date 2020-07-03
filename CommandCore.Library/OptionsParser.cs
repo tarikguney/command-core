@@ -13,9 +13,9 @@ namespace CommandCore.Library
             return verb.BaseType!.GetGenericArguments()[0];
         }
 
-        public VerbOptions CreatePopulatedOptionsObject(Type optionsType, ParsedVerb parsedVerb)
+        public VerbOptionsBase CreatePopulatedOptionsObject(Type optionsType, ParsedVerb parsedVerb)
         {
-            var options = (VerbOptions?) Activator.CreateInstance(optionsType);
+            var options = (VerbOptionsBase?) Activator.CreateInstance(optionsType);
             var optionProperties =
                 optionsType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
             

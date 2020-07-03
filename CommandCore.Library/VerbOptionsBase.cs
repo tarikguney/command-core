@@ -1,6 +1,6 @@
 namespace CommandCore.Library
 {
-    public abstract class VerbOptions
+    public abstract class VerbOptionsBase
     {
         
     }

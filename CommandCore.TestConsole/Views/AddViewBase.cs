@@ -2,7 +2,7 @@ using CommandCore.Library;
 
 namespace CommandCore.TestConsole.Views
 {
-    public class AddView : VerbView
+    public class AddViewBase : VerbViewBase
     {
         public override void RenderResponse()
         {
