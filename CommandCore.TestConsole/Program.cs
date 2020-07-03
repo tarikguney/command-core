@@ -1,12 +1,13 @@
-﻿using System;
+﻿using CommandCore.Library;
 
 namespace CommandCore.TestConsole
 {
-    class Program
+    public class Program
     {
-        static int Main(string[] args)
+        public static int Main(string[] args)
         {
-           return Library.CommandCore.Parse(args);
+            var commandCoreApp = new CommandCoreApp();
+            return commandCoreApp.Parse(args);
         }
     }
 }

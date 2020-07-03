@@ -2,7 +2,7 @@ using System;
 
 namespace CommandCore.Library.Interfaces
 {
-    public interface IVerbFinder
+    public interface IVerbTypeFinder
     {
         Type? FindVerbTypeInExecutingAssembly(string verbName);
     }

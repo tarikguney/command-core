@@ -6,7 +6,7 @@ using CommandCore.Library.Interfaces;
 
 namespace CommandCore.Library
 {
-    public class VerbFinder : IVerbFinder
+    public class VerbTypeFinder : IVerbTypeFinder
     {
         public Type? FindVerbTypeInExecutingAssembly(string verbName)
         {
