@@ -20,6 +20,9 @@ namespace CommandCore.LightIoC
             return (T) CreateInstance(typeof(T));
         }
 
+        /// <summary>
+        ///  Runs recursively to instantiate all of the dependent types along the way to resolve a given type.
+        /// </summary>
         private object CreateInstance(Type type)
         {
             var registeredType = _typeRegistry[type];
