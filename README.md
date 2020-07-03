@@ -19,7 +19,7 @@ Let's start with a simple command:
 ```bash
 helloworld.exe add --name tarik --lastname guney
 ```
-If we disect the command call above, these are the pieces of it:
+If we dissect the command call above, these are the pieces of it:
 - `add`: The verb of the command. It is also known as `subcommand`.
 - `--name` and `--lastname`: These are the parameter names, or option names. 
 - `tarik` and `guney`: These are the arguments or parameter values.
