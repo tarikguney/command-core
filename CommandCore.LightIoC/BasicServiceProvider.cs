@@ -10,6 +10,10 @@ namespace CommandCore.LightIoC
     {
         private readonly ConcurrentDictionary<Type, Type> _typeRegistry = new ConcurrentDictionary<Type, Type>();
 
+        /// <summary>
+        /// Registers a service with its concrete type to build the dependency tree for a requested type.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">If the concrete type is not instantiable. For instance, using an abstract class for the concrete type throws this exception.</exception>
         public void Register<S, T>() where T : S
         {
             if (typeof(T).IsAbstract)
