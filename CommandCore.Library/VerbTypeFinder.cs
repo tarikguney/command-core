@@ -8,10 +8,17 @@ namespace CommandCore.Library
 {
     public class VerbTypeFinder : IVerbTypeFinder
     {
+        private readonly IEntryAssemblyProvider _entryAssemblyProvider;
+
+        public VerbTypeFinder(IEntryAssemblyProvider entryAssemblyProvider)
+        {
+            _entryAssemblyProvider = entryAssemblyProvider;
+        }
+        
         public Type? FindVerbTypeInExecutingAssembly(string verbName)
         {
             // TODO using getentryassembly might not be the perfect solution. Needs more testing here.
-            var allTypes = Assembly.GetEntryAssembly()!.GetTypes()
+            var allTypes = _entryAssemblyProvider.GetEntryAssembly().GetTypes()
                 .Where(a => a.BaseType != null && a.BaseType!.IsGenericType &&
                             a.BaseType.GetGenericTypeDefinition() == typeof(VerbBase<>)).ToList();
 

@@ -9,7 +9,8 @@ namespace CommandCore.Library
         private readonly IVerbTypeFinder _verbTypeFinder;
         private readonly IOptionsParser _optionsParser;
 
-        public CommandCoreApp(ICommandParser commandParser, IVerbTypeFinder verbTypeFinder, IOptionsParser optionsParser)
+        public CommandCoreApp(ICommandParser commandParser, IVerbTypeFinder verbTypeFinder,
+            IOptionsParser optionsParser)
         {
             _commandParser = commandParser;
             _verbTypeFinder = verbTypeFinder;
@@ -19,10 +20,10 @@ namespace CommandCore.Library
         public CommandCoreApp()
         {
             _commandParser = new DummyCommandParser();
-            _verbTypeFinder = new VerbTypeFinder();
+            _verbTypeFinder = new VerbTypeFinder(new BasicEntryAssemblyProvider());
             _optionsParser = new OptionsParser();
         }
-        
+
         public int Parse(string[] args)
         {
             var parsedVerb = _commandParser.ParseCommand(args);
@@ -30,7 +31,7 @@ namespace CommandCore.Library
             var options = _optionsParser.CreatePopulatedOptionsObject(verbType!, parsedVerb);
             var verb = SetOptionsOfVerb(verbType!, options);
             verb.Run();
-            
+
             return 0;
         }
 
