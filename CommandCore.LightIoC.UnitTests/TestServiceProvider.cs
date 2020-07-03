@@ -1,3 +1,4 @@
+using System;
 using CommandCore.LightIoC.UnitTests.TestTypes;
 using Xunit;
 
@@ -21,6 +22,15 @@ namespace CommandCore.LightIoC.UnitTests
             Assert.NotNull(instance.ChildTwo);
             
             Assert.NotNull(instance.ChildTwo.GrandChildOne);
+        }
+
+        [Fact]
+        public void When_More_Constructors_Throws_Exception()
+        {
+            var serviceProvider = new BasicServiceProvider();
+            serviceProvider.Register<IChildThreeWithTwoConstructors, ChildThreeWithTwoConstructors>();
+
+            Assert.Throws<Exception>(() => serviceProvider.Resolve<IChildThreeWithTwoConstructors>());
         }
     }
 }
