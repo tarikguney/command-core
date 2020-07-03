@@ -3,10 +3,11 @@ using System.Linq;
 using System.Reflection;
 using CommandCore.Library.Attributes;
 using CommandCore.Library.Interfaces;
+using CommandCore.Library.PublicBase;
 
 namespace CommandCore.Library
 {
-    public class VerbTypeFinder : IVerbTypeFinder
+    internal class VerbTypeFinder : IVerbTypeFinder
     {
         private readonly IEntryAssemblyProvider _entryAssemblyProvider;
 

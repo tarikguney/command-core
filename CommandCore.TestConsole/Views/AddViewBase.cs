@@ -1,4 +1,5 @@
 using CommandCore.Library;
+using CommandCore.Library.PublicBase;
 
 namespace CommandCore.TestConsole.Views
 {

@@ -1,8 +1,13 @@
 using System;
 using CommandCore.Library.Interfaces;
+using CommandCore.Library.PublicBase;
 
 namespace CommandCore.Library
 {
+    /// <summary>
+    /// This is the internal class that mainly an abstraction layer for injectable dependencies that start
+    /// the application.
+    /// </summary>
     internal class CommandCoreVerbRunner : ICommandCoreVerbRunner
     {
         private readonly ICommandParser _commandParser;

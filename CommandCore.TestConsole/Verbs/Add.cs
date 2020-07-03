@@ -1,6 +1,7 @@
 using System;
 using CommandCore.Library;
 using CommandCore.Library.Attributes;
+using CommandCore.Library.PublicBase;
 using CommandCore.TestConsole.Options;
 
 namespace CommandCore.TestConsole.Verbs

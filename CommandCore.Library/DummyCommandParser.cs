@@ -3,7 +3,7 @@ using CommandCore.Library.Interfaces;
 
 namespace CommandCore.Library
 {
-    public class DummyCommandParser : ICommandParser
+    internal class DummyCommandParser : ICommandParser
     {
         public ParsedVerb ParseCommand(string[] arguments) => new ParsedVerb()
         {

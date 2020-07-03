@@ -3,10 +3,11 @@ using System.Linq;
 using System.Reflection;
 using CommandCore.Library.Attributes;
 using CommandCore.Library.Interfaces;
+using CommandCore.Library.PublicBase;
 
 namespace CommandCore.Library
 {
-    public class OptionsParser : IOptionsParser
+    internal class OptionsParser : IOptionsParser
     {
         public VerbOptionsBase CreatePopulatedOptionsObject(Type verbType, ParsedVerb parsedVerb)
         {

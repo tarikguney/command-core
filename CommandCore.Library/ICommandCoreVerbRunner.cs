@@ -1,6 +1,6 @@
 namespace CommandCore.Library
 {
-    public interface ICommandCoreVerbRunner
+    internal interface ICommandCoreVerbRunner
     {
         int Run(string[] args);
     }

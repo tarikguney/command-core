@@ -1,6 +1,6 @@
 using CommandCore.Library.Interfaces;
 
-namespace CommandCore.Library
+namespace CommandCore.Library.PublicBase
 {
     public abstract class VerbBase<T>: IVerbRunner where T: VerbOptionsBase
     {

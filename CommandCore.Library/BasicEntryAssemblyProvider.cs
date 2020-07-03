@@ -3,7 +3,7 @@ using CommandCore.Library.Interfaces;
 
 namespace CommandCore.Library
 {
-    public class BasicEntryAssemblyProvider : IEntryAssemblyProvider
+    internal class BasicEntryAssemblyProvider : IEntryAssemblyProvider
     {
         public Assembly GetEntryAssembly()
         {
