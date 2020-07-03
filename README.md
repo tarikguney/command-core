@@ -62,7 +62,8 @@ To activate this library, you need to add the following code to the `Main` funct
 ```c#
 public static int Main(string[] args)
 {
-    return CommandCore.Parse(args);
+    var commandCoreApp = new CommandCoreApp();
+    return commandCoreApp.Parse(args);
 }
 ```
 
