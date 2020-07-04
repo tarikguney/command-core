@@ -11,7 +11,7 @@ namespace CommandCore.TestConsole.Options
         [ParameterName("lastname")]
         public string? LastName { get; set; }
         
-        [ParameterName("employed")]
-        public bool? Employed { get; set; }
+        [ParameterName("haslicense")]
+        public bool? HasLicense { get; set; }
     }
 }

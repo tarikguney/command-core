@@ -12,10 +12,11 @@ namespace CommandCore.TestConsole.Views
         {
             _options = options;
         }
-        
+
         public override void RenderResponse()
         {
-            Console.WriteLine($"FirstName: {_options!.FirstName}\nLast Name: {_options!.LastName}\nEmployed: {_options!.Employed}");
+            Console.WriteLine(
+                $"FirstName: {_options!.FirstName}\nLast Name: {_options!.LastName}\nHas License: {_options!.HasLicense}");
         }
     }
 }
