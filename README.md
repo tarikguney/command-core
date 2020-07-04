@@ -15,7 +15,7 @@ Each verb and their arguments are represented with three simple classes inheriti
 Let's start with a simple command:
 
 ```bash
-helloworld.exe add --name tarik --lastname guney
+helloworld.exe add --name tarik --lastname guney --haslicense
 ```
 If we dissect the command call above, these are the pieces of it:
 - `add`: The verb of the command. It is also known as `subcommand`.
@@ -35,12 +35,13 @@ public class Add : VerbBase<AddOptions>
     }
 }
 
-public class AddView : VerbViewBase
+public class AddView : VerbViewBase<AddOptions>
 {
     public override StringBuilder Write(){
         var outputBuilder = new StringBuilder();
         builder.Append($"Name: {Model.FirstName} {Environment.NewLine}");
         builder.Append($"Name: {Model.LastName} {Environment.NewLine}");
+        builder.Apopend($"Name: {Model.HasLicense}");
         return outputBuilder;
     }
 }
@@ -48,10 +49,15 @@ public class AddView : VerbViewBase
 public class AddOptions : VerbOptionsBase
 {
     [InputName("firstname")]
-    public string? FirstName {get;set;}
+    public string FirstName {get;set;}
     
     [InputName("lastname")]
-    public string? LastName {get;set;}
+    public string LastName {get;set;}
+
+    // CommandCore supports various types like Boolean, and it automatically
+    // converts them to their corresponding types specified with the Options properties.
+    [InputName("haslicense")]
+    public bool? HasLicense {get;set;}
 }
 ```
 
