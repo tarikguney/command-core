@@ -1,6 +1,6 @@
 namespace CommandCore.Library.Interfaces
 {
-    public interface ICommandParser
+    internal interface ICommandParser
     {
         ParsedVerb ParseCommand(string[] arguments);
     }

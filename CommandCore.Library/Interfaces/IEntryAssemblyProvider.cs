@@ -2,7 +2,7 @@ using System.Reflection;
 
 namespace CommandCore.Library.Interfaces
 {
-    public interface IEntryAssemblyProvider
+    internal interface IEntryAssemblyProvider
     {
         Assembly GetEntryAssembly();
     }
