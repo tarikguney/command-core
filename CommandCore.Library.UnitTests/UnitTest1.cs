@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace CommandCore.UnitTests
+namespace CommandCore.Library.UnitTests
 {
     public class UnitTest1
     {

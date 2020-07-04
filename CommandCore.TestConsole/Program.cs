@@ -1,4 +1,5 @@
-﻿using CommandCore.Library;
+﻿
+using CommandCore.Library;
 
 namespace CommandCore.TestConsole
 {

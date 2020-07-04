@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandCore.TestConsole", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandCore.Library", "CommandCore.Library\CommandCore.Library.csproj", "{C3693305-F904-40B3-B980-87AD74F4860D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandCore.UnitTests", "CommandCore.UnitTests\CommandCore.UnitTests.csproj", "{AB540F1B-0F22-45FB-A915-6DAA7A3A6217}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandCore.Library.UnitTests", "CommandCore.Library.UnitTests\CommandCore.Library.UnitTests.csproj", "{AB540F1B-0F22-45FB-A915-6DAA7A3A6217}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandCore.LightIoC", "CommandCore.LightIoC\CommandCore.LightIoC.csproj", "{BE18CD39-8C29-42BE-B5B3-592606A6E7D8}"
 EndProject
