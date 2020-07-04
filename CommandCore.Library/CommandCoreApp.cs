@@ -16,7 +16,7 @@ namespace CommandCore.Library
         public CommandCoreApp()
         {
             _serviceProvider = new BasicServiceProvider();
-            _serviceProvider.Register<ICommandParser, DummyCommandParser>();
+            _serviceProvider.Register<ICommandParser, CommandParser>();
             _serviceProvider.Register<IVerbTypeFinder, VerbTypeFinder>();
             _serviceProvider.Register<IOptionsParser, OptionsParser>();
             _serviceProvider.Register<IEntryAssemblyProvider, BasicEntryAssemblyProvider>();
