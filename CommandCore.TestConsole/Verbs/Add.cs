@@ -10,7 +10,7 @@ namespace CommandCore.TestConsole.Verbs
     {
         public override void Run()
         {
-            Console.WriteLine($"{Options!.FirstName} {Options!.LastName}");
+            Console.WriteLine($"FirstName: {Options!.FirstName}\nLast Name: {Options!.LastName}\nEmployed: {Options!.Employed}");
         }
     }
 }
