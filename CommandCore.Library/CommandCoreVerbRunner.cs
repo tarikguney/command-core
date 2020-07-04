@@ -30,7 +30,10 @@ namespace CommandCore.Library
                 var verbType = _verbTypeFinder.FindVerbTypeInExecutingAssembly(parsedVerb.VerbName!);
                 var options = _optionsParser.CreatePopulatedOptionsObject(verbType!, parsedVerb);
                 var verb = SetOptionsOfVerb(verbType!, options);
-                verb.Run();
+                VerbViewBase view = verb.Run();
+                // Running the view to render the result to the console (stdout).
+                // This could be a good extension point for various redirections.
+                view.RenderResponse();
                 return 0;
             }
             catch (Exception e)

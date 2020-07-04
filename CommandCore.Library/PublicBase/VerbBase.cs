@@ -6,6 +6,6 @@ namespace CommandCore.Library.PublicBase
     {
         public T? Options { get; set; }
         
-        public abstract void Run();
+        public abstract VerbViewBase Run();
     }
 }
