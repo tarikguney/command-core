@@ -47,5 +47,43 @@ namespace CommandCore.Library.UnitTests
                 {"lastname", "guney"},
             }, parsedVerb.Options);
         }
+
+        [Fact]
+        public void When_No_Arguments_Passed_Only_Default_Verb_Returned()
+        {
+            var commandParser = new CommandParser();
+            var parsedVerb = commandParser.ParseCommand(new string[0]);
+            Assert.Equal("default", parsedVerb.VerbName);
+            Assert.Null(parsedVerb.Options);
+        }
+        
+        [Fact]
+        public void When_Passed_Null_Arguments_Default_Verb_Selected()
+        {
+            var commandParser = new CommandParser();
+            var parsedVerb = commandParser.ParseCommand(null);
+            Assert.Equal("default", parsedVerb.VerbName);
+            Assert.Null(parsedVerb.Options);
+        }
+
+        [Fact]
+        public void When_Passed_Alias_Parsed_Properly()
+        {
+            var commandParser = new CommandParser();
+            var arguments = new string[]
+            {
+                "-t", "test",
+                "--name", "tarik",
+                "-g", "guney"
+            };
+            var parsedVerb = commandParser.ParseCommand(arguments);
+            Assert.Equal("default", parsedVerb.VerbName);
+            Assert.Equal(new Dictionary<string,string>()
+            {
+                {"t","test"},
+                {"name","tarik"},
+                {"g","guney"}
+            }, parsedVerb.Options);
+        }
     }
 }

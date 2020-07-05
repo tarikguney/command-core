@@ -7,6 +7,11 @@ namespace CommandCore.Library
     {
         public ParsedVerb ParseCommand(string[] arguments)
         {
+            if (arguments == null)
+            {
+                return new ParsedVerb() {VerbName = "default"};
+            }
+            
             var argumentsClone = (string[]) arguments.Clone();
             var parsedVerb = new ParsedVerb();
 
