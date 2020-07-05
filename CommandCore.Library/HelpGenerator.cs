@@ -24,13 +24,13 @@ namespace CommandCore.Library
             }
             
             helpBuilder.AppendLine("VERBS:");
-            helpBuilder.AppendLine("------");
+            helpBuilder.AppendLine("----------------------");
             foreach (var verbType in allTypes)
             {
                 var attribute = verbType.GetCustomAttribute<VerbNameAttribute>();
                 var verbName = attribute?.Name ?? verbType.Name;
                 helpBuilder.Append(
-                    $"    {verbName}");
+                    $"{verbName}");
                 // If there is description to show for teh verb, show it after a colon.
                 if (!string.IsNullOrWhiteSpace(attribute?.Description))
                 {
@@ -41,13 +41,13 @@ namespace CommandCore.Library
                 {
                     continue;
                 }
-                helpBuilder.AppendLine($"    Options:");
+                helpBuilder.AppendLine($"  Options:");
                 foreach (var optionPropertyInfo in  optionProperties)
                 {
                     var optionPropertyAttribute = optionPropertyInfo.GetCustomAttribute<ParameterNameAttribute>();
                     var optionName = optionPropertyAttribute?.Name ?? optionPropertyInfo.Name;
                     helpBuilder.Append(
-                        $"    --{optionName}");
+                        $"  --{optionName}");
                     if (!string.IsNullOrWhiteSpace(optionPropertyAttribute?.Alias))
                     {
                         helpBuilder.Append($" (-{optionPropertyAttribute!.Alias})");
