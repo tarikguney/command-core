@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using CommandCore.Library.Interfaces;
 using CommandCore.Library.PublicBase;
 
@@ -29,8 +30,16 @@ namespace CommandCore.Library
                 var parsedVerb = _commandParser.ParseCommand(args);
                 var verbType = _verbTypeFinder.FindVerbTypeInExecutingAssembly(parsedVerb.VerbName!);
                 var options = _optionsParser.CreatePopulatedOptionsObject(verbType!, parsedVerb);
-                var verb = SetOptionsOfVerb(verbType!, options);
-                VerbViewBase view = verb.Run();
+
+                var verbObject = (IVerbRunner) Activator.CreateInstance(verbType);
+
+                if (options != null)
+                {
+                    var optionsPropertyInfo = verbType.GetProperty("Options");
+                    optionsPropertyInfo!.SetValue(verbObject, options);
+                }
+                
+                VerbViewBase view = verbObject.Run();
                 // Running the view to render the result to the console (stdout).
                 // This could be a good extension point for various redirections.
                 view.RenderResponse();
@@ -41,14 +50,6 @@ namespace CommandCore.Library
                 Console.WriteLine(e.Message);
                 return 1;
             }
-        }
-        
-        private IVerbRunner SetOptionsOfVerb(Type verbType, VerbOptionsBase optionsBase)
-        {
-            var verb = Activator.CreateInstance(verbType);
-            var optionsPropertyInfo = verbType.GetProperty("Options");
-            optionsPropertyInfo!.SetValue(verb, optionsBase);
-            return (IVerbRunner) verb!;
         }
     }
 }
