@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "CommandCore.TestConsole": {
+      "commandName": "Project",
+      "environmentVariables": {
+        
+      },
+      "commandLineArgs": "add --firstname tarik --lastname guney --haslicense",
+    }
+  }
+}
