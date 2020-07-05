@@ -26,6 +26,7 @@ namespace CommandCore.Library
                 helpBuilder.AppendLine(
                     $"  - {verbName}: {attribute?.Description}");
                 // TODO needs a safer handling here. I wil address this later.
+                // TODO this code needs some homekeeping. I will take care of it later.
                 helpBuilder.AppendLine($"    OPTIONS");
                 helpBuilder.AppendLine("    --------");
                 foreach (var optionPropertyInfo in verbType.BaseType!.GetGenericArguments()[0].GetProperties())

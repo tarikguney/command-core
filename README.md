@@ -78,6 +78,25 @@ public static int Main(string[] args)
 
 That's all, and it will be all. The whole idea of this library is to simplify the console application command line argument parsing.
 
+## Generate help automatically
+
+Command Core prints out a small documentation for the verbs and their associated options in an organized way to the console.You don't need to anything special as it works out of the box when people pass `--help` flag to the command. Check out the `CommandCore.TestConsole` project for an example.
+
+`VerbName` and `ParameterName` attributes accepts an optional `Description` value which is used when printing out the documentation. You can see an example of the documentation output below:
+
+```bash
+VERBS:
+------
+  - add: Adds a new person to the system.
+    OPTIONS
+    --------
+    - firstname (Alias: ): First name of the person provided.
+    - lastname (Alias: ): Last name of the person provided.
+    - haslicense (Alias: hs): Indicates whether the person has a driver license
+    - age (Alias: a): 
+
+```
+
 ## Roadmap
 
 1. Add routing mechanism, similar to Asp.NET Core MVC. Routing mechanism will help verbs to be routed to a desired class pattern for more complicated scenarios.
