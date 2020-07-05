@@ -50,18 +50,18 @@ public class AddView : VerbViewBase<AddOptions>
 
 public class AddOptions : VerbOptionsBase
 {
-    [ParameterName("firstname")]
+    [OptionName("firstname")]
     public string FirstName {get;set;}
     
-    [ParameterName("lastname")]
+    [OptionName("lastname")]
     public string LastName {get;set;}
 
     // CommandCore supports various types like Boolean, and it automatically
     // converts them to their corresponding types specified with the Options properties.
-    [ParameterName("haslicense")]
+    [OptionName("haslicense")]
     public bool? HasLicense {get;set;}
     
-    [ParameterName("age", Alias="a")]
+    [OptionName("age", Alias="a")]
     public int Age {get;set;}
 }
 ```
@@ -82,7 +82,7 @@ That's all, and it will be all. The whole idea of this library is to simplify th
 
 Command Core prints out a small documentation for the verbs and their associated options in an organized way to the console.You don't need to anything special as it works out of the box when people pass `--help` flag to the command. Check out the `CommandCore.TestConsole` project for an example.
 
-`VerbName` and `ParameterName` attributes accepts an optional `Description` value which is used when printing out the documentation. You can see an example of the documentation output below:
+`VerbName` and `OptionName` attributes accepts an optional `Description` value which is used when printing out the documentation. You can see an example of the documentation output below:
 
 ```bash
 VERBS:
