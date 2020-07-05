@@ -44,7 +44,7 @@ namespace CommandCore.Library
                 helpBuilder.AppendLine($"  Options:");
                 foreach (var optionPropertyInfo in  optionProperties)
                 {
-                    var optionPropertyAttribute = optionPropertyInfo.GetCustomAttribute<ParameterNameAttribute>();
+                    var optionPropertyAttribute = optionPropertyInfo.GetCustomAttribute<OptionNameAttribute>();
                     var optionName = optionPropertyAttribute?.Name ?? optionPropertyInfo.Name;
                     helpBuilder.Append(
                         $"  --{optionName}");

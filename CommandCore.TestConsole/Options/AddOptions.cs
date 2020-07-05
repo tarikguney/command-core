@@ -5,16 +5,16 @@ namespace CommandCore.TestConsole.Options
 {
     public class AddOptions : VerbOptionsBase
     {
-        [ParameterName("firstname", Description = "First name of the person provided.")]
+        [OptionName("firstname", Description = "First name of the person provided.")]
         public string? FirstName { get; set; }
         
-        [ParameterName("lastname", Description = "Last name of the person provided.")]
+        [OptionName("lastname", Description = "Last name of the person provided.")]
         public string? LastName { get; set; }
         
-        [ParameterName("haslicense", Alias="hs", Description = "Indicates whether the person has a driver license")]
+        [OptionName("haslicense", Alias="hs", Description = "Indicates whether the person has a driver license")]
         public bool? HasLicense { get; set; }
         
-        [ParameterName("age", Alias = "a")]
+        [OptionName("age", Alias = "a")]
         public int Age { get; set; }
     }
 }

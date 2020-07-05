@@ -24,7 +24,7 @@ namespace CommandCore.Library
 
             foreach (var propertyInfo in optionProperties.Where(a => a.CanRead && a.CanWrite))
             {
-                var parameterNameAttribute = propertyInfo.GetCustomAttribute<ParameterNameAttribute>();
+                var parameterNameAttribute = propertyInfo.GetCustomAttribute<OptionNameAttribute>();
                 var parameterName = parameterNameAttribute?.Name ?? propertyInfo.Name;
                 var parameterAlias = parameterNameAttribute?.Alias;
 
