@@ -13,21 +13,30 @@ namespace CommandCore.Library
         private readonly ICommandParser _commandParser;
         private readonly IVerbTypeFinder _verbTypeFinder;
         private readonly IOptionsParser _optionsParser;
+        private readonly IHelpGenerator _helpGenerator;
 
         public CommandCoreVerbRunner(ICommandParser commandParser, IVerbTypeFinder verbTypeFinder,
-            IOptionsParser optionsParser)
+            IOptionsParser optionsParser, IHelpGenerator helpGenerator)
         {
             _commandParser = commandParser;
             _verbTypeFinder = verbTypeFinder;
             _optionsParser = optionsParser;
+            _helpGenerator = helpGenerator;
         }
         
         public int Run(string[] args)
         {
             try
             {
+                if (args.Length > 0 && args[0] == "--help")
+                {
+                    var help = _helpGenerator.Build();
+                    Console.WriteLine(help);
+                    return 0;
+                }
+                
                 var parsedVerb = _commandParser.ParseCommand(args);
-                var verbType = _verbTypeFinder.FindVerbTypeInExecutingAssembly(parsedVerb.VerbName!);
+                var verbType = _verbTypeFinder.FindByName(parsedVerb.VerbName!);
                 var options = _optionsParser.CreatePopulatedOptionsObject(verbType!, parsedVerb);
 
                 var verbObject = (IVerbRunner) Activator.CreateInstance(verbType!)!;

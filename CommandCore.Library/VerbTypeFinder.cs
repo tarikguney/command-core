@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using CommandCore.Library.Attributes;
@@ -15,14 +16,22 @@ namespace CommandCore.Library
         {
             _entryAssemblyProvider = entryAssemblyProvider;
         }
-        
-        public Type? FindVerbTypeInExecutingAssembly(string verbName)
+
+        public IReadOnlyList<Type> FindAll()
         {
             // TODO using getentryassembly might not be the perfect solution. Needs more testing here.
             var allTypes = _entryAssemblyProvider.GetEntryAssembly().GetTypes()
                 .Where(a => a.BaseType != null && a.BaseType!.IsGenericType &&
                             a.BaseType.GetGenericTypeDefinition() == typeof(VerbBase<>)).ToList();
+            return allTypes;
+        }
 
+        public Type? FindByName(string verbName)
+        {
+            // Stopping when the verb is found would be more performing, but this implementation is better for
+            // future optimization like caching.
+            var allTypes = FindAll();
+            
             return allTypes.FirstOrDefault(verbType =>
             {
                 var verbNameAttribute = verbType.GetCustomAttribute<VerbNameAttribute>();

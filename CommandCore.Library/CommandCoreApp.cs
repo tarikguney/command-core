@@ -11,21 +11,21 @@ namespace CommandCore.Library
     /// </summary>
     public class CommandCoreApp
     {
-        private readonly IServiceProvider _serviceProvider;
-
-        public CommandCoreApp()
-        {
-            _serviceProvider = new BasicServiceProvider();
-            _serviceProvider.Register<ICommandParser, CommandParser>();
-            _serviceProvider.Register<IVerbTypeFinder, VerbTypeFinder>();
-            _serviceProvider.Register<IOptionsParser, OptionsParser>();
-            _serviceProvider.Register<IEntryAssemblyProvider, BasicEntryAssemblyProvider>();
-            _serviceProvider.Register<ICommandCoreVerbRunner, CommandCoreVerbRunner>();
-        }
-
         public int Parse(string[] args)
         {
-            return _serviceProvider.Resolve<ICommandCoreVerbRunner>().Run(args);
+            var serviceProvider = new BasicServiceProvider();
+            RegisterServices(serviceProvider);
+            return serviceProvider.Resolve<ICommandCoreVerbRunner>().Run(args);
+        }
+
+        private void RegisterServices(IServiceProvider serviceProvider)
+        {
+            serviceProvider.Register<IHelpGenerator, HelpGenerator>();
+            serviceProvider.Register<ICommandParser, CommandParser>();
+            serviceProvider.Register<IVerbTypeFinder, VerbTypeFinder>();
+            serviceProvider.Register<IOptionsParser, OptionsParser>();
+            serviceProvider.Register<IEntryAssemblyProvider, BasicEntryAssemblyProvider>();
+            serviceProvider.Register<ICommandCoreVerbRunner, CommandCoreVerbRunner>();
         }
     }
 }

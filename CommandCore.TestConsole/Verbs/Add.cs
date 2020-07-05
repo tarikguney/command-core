@@ -5,7 +5,7 @@ using CommandCore.TestConsole.Views;
 
 namespace CommandCore.TestConsole.Verbs
 {
-    [VerbName("add")]
+    [VerbName("add", Description = "Adds a new person to the system.")]
     public class Add : VerbBase<AddOptions>
     {
         public override VerbViewBase Run()
