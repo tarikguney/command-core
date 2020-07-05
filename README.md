@@ -15,7 +15,7 @@ Each verb and their arguments are represented with three simple classes inheriti
 Let's start with a simple command:
 
 ```bash
-helloworld.exe add --name tarik --lastname guney --haslicense
+helloworld.exe add --firstname tarik --lastname guney --haslicense -a 33
 ```
 If we dissect the command call above, these are the pieces of it:
 - `add`: The verb of the command. It is also known as `subcommand`.
