@@ -82,7 +82,7 @@ That's all, and it will be all. The whole idea of this library is to simplify th
 
 1. Add routing mechanism, similar to Asp.NET Core MVC. Routing mechanism will help verbs to be routed to a desired class pattern for more complicated scenarios.
 2. Add a middleware, which is similar to Asp.NET Core MVC request/response middleware features, which allows the developers to inject logic between a command is routed to its handling verb (controller).
-
+3. Caching for faster type lookup. Currently, the entire assembly needs to be scanned for the types that match the verb. A caching mechanism can store away the detected types for faster retrival next time.
 ## Developed
 
 by Tarik Guney with .NET Core 3.x.
