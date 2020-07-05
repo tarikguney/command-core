@@ -21,9 +21,9 @@ jobs:
     - name: Test
       run: dotnet test --no-restore --verbosity normal
     - name: Pack
-      run: dotnet pack ./CommandCore.Library/CommandCore.Library.csproj -p:PackageId=CommandCore -p:Version=${GITHUB_REF#refs/*/} -p:Authors="Tarik Guney" --no-restore -c Release
-    - name: Change the working directory to the release folder
-      run: cd ./CommandCore.Library/bin/Release/
+      run: dotnet pack CommandCore.Library.csproj -p:PackageId=CommandCore -p:Version=${GITHUB_REF#refs/*/} -p:Authors="Tarik Guney" --no-restore -c Release
+      working-directory: ./CommandCore.Library/
     - name: Publish to Nuget
       run: dotnet nuget push CommandCore.${GITHUB_REF#refs/*/}.nupkg -k ${{secrets.NUGETAPIKEY}} -s https://api.nuget.org/v3/index.json
+      working-directory: ./CommandCore.Library/bin/Release/
 
