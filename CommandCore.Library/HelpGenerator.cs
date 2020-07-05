@@ -17,24 +17,46 @@ namespace CommandCore.Library
         {
             var helpBuilder = new StringBuilder();
             var allTypes = _verbTypeFinder.FindAll();
+
+            if (allTypes.Count == 0)
+            {
+                return helpBuilder;
+            }
+            
             helpBuilder.AppendLine("VERBS:");
             helpBuilder.AppendLine("------");
             foreach (var verbType in allTypes)
             {
                 var attribute = verbType.GetCustomAttribute<VerbNameAttribute>();
                 var verbName = attribute?.Name ?? verbType.Name;
-                helpBuilder.AppendLine(
-                    $"  - {verbName}: {attribute?.Description}");
-                // TODO needs a safer handling here. I wil address this later.
-                // TODO this code needs some homekeeping. I will take care of it later.
-                helpBuilder.AppendLine($"    OPTIONS");
-                helpBuilder.AppendLine("    --------");
-                foreach (var optionPropertyInfo in verbType.BaseType!.GetGenericArguments()[0].GetProperties())
+                helpBuilder.Append(
+                    $"    {verbName}");
+                // If there is description to show for teh verb, show it after a colon.
+                if (!string.IsNullOrWhiteSpace(attribute?.Description))
+                {
+                    helpBuilder.AppendLine($": {attribute?.Description}");
+                }
+                var optionProperties = verbType.BaseType!.GetGenericArguments()[0].GetProperties();
+                if (optionProperties.Length == 0)
+                {
+                    continue;
+                }
+                helpBuilder.AppendLine($"    Options:");
+                foreach (var optionPropertyInfo in  optionProperties)
                 {
                     var optionPropertyAttribute = optionPropertyInfo.GetCustomAttribute<ParameterNameAttribute>();
                     var optionName = optionPropertyAttribute?.Name ?? optionPropertyInfo.Name;
-                    helpBuilder.AppendLine(
-                        $"    - {optionName} (Alias: {optionPropertyAttribute.Alias}): {optionPropertyAttribute.Description}");
+                    helpBuilder.Append(
+                        $"    --{optionName}");
+                    if (!string.IsNullOrWhiteSpace(optionPropertyAttribute?.Alias))
+                    {
+                        helpBuilder.Append($" (-{optionPropertyAttribute!.Alias})");
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(optionPropertyAttribute?.Description))
+                    {
+                        helpBuilder.AppendLine($": {optionPropertyAttribute!.Description}");
+                    }
                 }
             }
 

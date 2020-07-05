@@ -87,14 +87,12 @@ Command Core prints out a small documentation for the verbs and their associated
 ```bash
 VERBS:
 ------
-  - add: Adds a new person to the system.
-    OPTIONS
-    --------
-    - firstname (Alias: ): First name of the person provided.
-    - lastname (Alias: ): Last name of the person provided.
-    - haslicense (Alias: hs): Indicates whether the person has a driver license
-    - age (Alias: a): 
-
+    add: Adds a new person to the system.
+    Options:
+    --firstname: First name of the person provided.
+    --lastname: Last name of the person provided.
+    --haslicense (-hs): Indicates whether the person has a driver license
+    --age (-a)
 ```
 
 ## Roadmap
