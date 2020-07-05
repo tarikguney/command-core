@@ -19,10 +19,12 @@ helloworld.exe add --firstname tarik --lastname guney --haslicense -a 33
 ```
 If we dissect the command call above, these are the pieces of it:
 - `add`: The verb of the command. It is also known as `subcommand`.
-- `--name` and `--lastname`: These are the parameter names, or option names. 
+- `--name` and `--lastname`: These are the parameter names, which are also known as options. 
 - `tarik` and `guney`: These are the arguments or parameter values.
+- `-a` is an alias for `--age`, so you can either specify the age with `--age 33` or `-a 33`
+- `--haslicense` is a flag, which by default has value of `true`. You don't need to specify its values explicitly.
 
-You will see that these names are used in the library classes, as well.
+When it comes to parameter names, CommandCore follows a strict format. You must use `--` suffix for the parameter names or `-` for the parameter aliases as shown in the sample call above. 
 
 You can represent and parse the command above with the following classes:
 
