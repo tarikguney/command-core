@@ -22,7 +22,7 @@ jobs:
     - name: Test
       run: dotnet test --no-restore --verbosity normal
     - name: Pack
-      run: dotnet pack -p:PackageId=CommandCore -p:Version=RELEASE_VERSION::${GITHUB_REF#refs/*/} -p:Authors="Tarik Guney" --no-restore -c Release
+      run: dotnet pack -p:PackageId=CommandCore -p:Version=${GITHUB_REF#refs/*/} -p:Authors="Tarik Guney" --no-restore -c Release
     - name: Publish to Nuget
       run: dotnet nuget push CommandCore.${GITHUB_REF#refs/*/}.nupkg -k ${{secrets.NUGETAPIKEY}} -s https://api.nuget.org/v3/index.json
 
