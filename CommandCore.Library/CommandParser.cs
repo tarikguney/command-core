@@ -11,8 +11,10 @@ namespace CommandCore.Library
             var parsedVerb = new ParsedVerb();
 
             var firstArgIsVerb = argumentsClone.Length > 0 && !argumentsClone[0].StartsWith("-");
+            var startingPoint = 0;
             if (firstArgIsVerb)
             {
+                startingPoint = 1;
                 parsedVerb.VerbName = arguments[0];
             }
             else
@@ -28,7 +30,7 @@ namespace CommandCore.Library
 
             var options = new Dictionary<string, string>();
 
-            for (int i = 1; i < arguments.Length; i++)
+            for (int i = startingPoint; i < arguments.Length; i++)
             {
                 if (arguments[i].StartsWith("-"))
                 {
