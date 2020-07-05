@@ -3,7 +3,6 @@ name: Publish Package to Nuget
 on:
   create:
     tags:
-    - v*
 jobs:
   build:
 
