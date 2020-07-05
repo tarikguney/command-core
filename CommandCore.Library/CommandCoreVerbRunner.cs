@@ -30,11 +30,11 @@ namespace CommandCore.Library
                 var verbType = _verbTypeFinder.FindVerbTypeInExecutingAssembly(parsedVerb.VerbName!);
                 var options = _optionsParser.CreatePopulatedOptionsObject(verbType!, parsedVerb);
 
-                var verbObject = (IVerbRunner) Activator.CreateInstance(verbType);
+                var verbObject = (IVerbRunner) Activator.CreateInstance(verbType!)!;
 
                 if (options != null)
                 {
-                    var optionsPropertyInfo = verbType.GetProperty("Options");
+                    var optionsPropertyInfo = verbType!.GetProperty("Options");
                     optionsPropertyInfo!.SetValue(verbObject, options);
                 }
                 
