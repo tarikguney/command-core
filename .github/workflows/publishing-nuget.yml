@@ -22,6 +22,8 @@ jobs:
       run: dotnet test --no-restore --verbosity normal
     - name: Pack
       run: dotnet pack -p:PackageId=CommandCore -p:Version=${GITHUB_REF#refs/*/} -p:Authors="Tarik Guney" --no-restore -c Release
+    - name: Change the working directory to the release folder
+      run: cd /home/runner/work/command-core/command-core/CommandCore.TestConsole/bin/Release/
     - name: Publish to Nuget
       run: dotnet nuget push CommandCore.${GITHUB_REF#refs/*/}.nupkg -k ${{secrets.NUGETAPIKEY}} -s https://api.nuget.org/v3/index.json
 
