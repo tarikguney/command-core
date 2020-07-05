@@ -16,7 +16,10 @@ namespace CommandCore.TestConsole.Views
         public override void RenderResponse()
         {
             Console.WriteLine(
-                $"FirstName: {_options!.FirstName}\nLast Name: {_options!.LastName}\nHas License: {_options!.HasLicense}");
+                $"FirstName: {_options!.FirstName}\n" +
+                $"Last Name: {_options!.LastName}\n" +
+                $"Has License: {_options!.HasLicense}\n" +
+                $"Age: {_options.Age}");
         }
     }
 }

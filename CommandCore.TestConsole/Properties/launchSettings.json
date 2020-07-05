@@ -6,7 +6,7 @@
       "environmentVariables": {
         
       },
-      "commandLineArgs": "add --firstname tarik --lastname guney --haslicense",
+      "commandLineArgs": "add --firstname tarik --lastname guney --haslicense -a 33"
     }
   }
 }

@@ -37,27 +37,30 @@ public class Add : VerbBase<AddOptions>
 
 public class AddView : VerbViewBase<AddOptions>
 {
-    public override StringBuilder Write(){
-        var outputBuilder = new StringBuilder();
-        builder.Append($"Name: {Model.FirstName} {Environment.NewLine}");
-        builder.Append($"Name: {Model.LastName} {Environment.NewLine}");
-        builder.Apopend($"Name: {Model.HasLicense}");
-        return outputBuilder;
+    public override void RenderResponse(){
+        Console.WriteLine(
+            $"FirstName: {_options!.FirstName}\n" +
+            $"Last Name: {_options!.LastName}\n" +
+            $"Has License: {_options!.HasLicense}\n" +
+            $"Age: {_options.Age}");
     }
 }
 
 public class AddOptions : VerbOptionsBase
 {
-    [InputName("firstname")]
+    [ParameterName("firstname")]
     public string FirstName {get;set;}
     
-    [InputName("lastname")]
+    [ParameterName("lastname")]
     public string LastName {get;set;}
 
     // CommandCore supports various types like Boolean, and it automatically
     // converts them to their corresponding types specified with the Options properties.
-    [InputName("haslicense")]
+    [ParameterName("haslicense")]
     public bool? HasLicense {get;set;}
+    
+    [ParameterName("age", Alias="a")]
+    public int Age {get;set;}
 }
 ```
 

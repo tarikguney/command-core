@@ -13,5 +13,8 @@ namespace CommandCore.TestConsole.Options
         
         [ParameterName("haslicense")]
         public bool? HasLicense { get; set; }
+        
+        [ParameterName("age", Alias = "a")]
+        public int Age { get; set; }
     }
 }

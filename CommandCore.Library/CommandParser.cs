@@ -10,7 +10,7 @@ namespace CommandCore.Library
             var argumentsClone = (string[]) arguments.Clone();
             var parsedVerb = new ParsedVerb();
 
-            var firstArgIsVerb = argumentsClone.Length > 0 && !argumentsClone[0].StartsWith("--");
+            var firstArgIsVerb = argumentsClone.Length > 0 && !argumentsClone[0].StartsWith("-");
             if (firstArgIsVerb)
             {
                 parsedVerb.VerbName = arguments[0];
@@ -30,18 +30,18 @@ namespace CommandCore.Library
 
             for (int i = 1; i < arguments.Length; i++)
             {
-                if (arguments[i].StartsWith("--"))
+                if (arguments[i].StartsWith("-"))
                 {
-                    // Checking if the option is with a value like --name "Tarik"
-                    if (arguments.Length - 1 >= i + 1 && !arguments[i + 1].StartsWith("--"))
+                    // Checking if the option is with a value like --name "Tarik" or -n "Tarik"
+                    if (arguments.Length - 1 >= i + 1 && !arguments[i + 1].StartsWith("-"))
                     {
                         options[arguments[i].TrimStart('-')] = arguments[i + 1];
                         // We already captured the value which is the next item in the array, so we can skip it.
                         i++;
                     }
-                    // Checking if the option is a flag like --visible, which is automatically inferred as --visible true
-                    // If the --argument is the last item or a value does not follow it, it means it is a flag.
-                    else if (arguments.Length - 1 == i || arguments[i + 1].StartsWith("--"))
+                    // Checking if the option is a flag like --visible or -v, which is automatically inferred as --visible
+                    // true. If the --argument is the last item or a value does not follow it, it means it is a flag.
+                    else if (arguments.Length - 1 == i || arguments[i + 1].StartsWith("-"))
                     {
                         options[arguments[i].TrimStart('-')] = "true";
                     }
