@@ -4,6 +4,12 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
+    <PropertyGroup>
+        <Authors>Tarik Guney</Authors>
+        <PackageId>CommandCore.LightIoC</PackageId>
+        <Description>CommandCore.LightIoC offers a lightweight inversion of control capabilities, specially designed for CommandCore.Library, which provides MVC-style development for command line application. You can find more information as well the source code of both libraries at their Github page: https://github.com/tarikguney/command-core</Description>
+    </PropertyGroup>
+    
     <ItemGroup>
         <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
             <_Parameter1>CommandCore.LightIoC.UnitTests</_Parameter1>
