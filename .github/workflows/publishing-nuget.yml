@@ -21,13 +21,13 @@ jobs:
     - name: Test
       run: dotnet test --no-restore --verbosity normal
     - name: Pack CommandCore.LightIoC
-      run: dotnet pack CommandCore.LightIoC.csproj -p:PackageId=CommandCore -p:Version=${GITHUB_REF#refs/*/} -p:Authors="Tarik Guney" --no-restore -c Release
+      run: dotnet pack CommandCore.LightIoC.csproj -p:PackageId=CommandCore.LightIoC -p:Version=${GITHUB_REF#refs/*/} -p:Authors="Tarik Guney" --no-restore -c Release
       working-directory: ./CommandCore.LightIoC/
     - name: Publish CommandCore.LightIoC to Nuget
       run: dotnet nuget push CommandCore.LightIoC.${GITHUB_REF#refs/*/}.nupkg -k ${{secrets.NUGETAPIKEY}} -s https://api.nuget.org/v3/index.json
       working-directory: ./CommandCore.LightIoC/bin/Release/
     - name: Pack CommandCore.Library
-      run: dotnet pack CommandCore.Library.csproj -p:PackageId=CommandCore -p:Version=${GITHUB_REF#refs/*/} -p:Authors="Tarik Guney" --no-restore -c Release
+      run: dotnet pack CommandCore.Library.csproj -p:PackageId=CommandCore.Library -p:Version=${GITHUB_REF#refs/*/} -p:Authors="Tarik Guney" --no-restore -c Release
       working-directory: ./CommandCore.Library/
     - name: Publish CommandCore.Library to Nuget
       run: dotnet nuget push CommandCore.Library.${GITHUB_REF#refs/*/}.nupkg -k ${{secrets.NUGETAPIKEY}} -s https://api.nuget.org/v3/index.json
