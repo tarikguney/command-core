@@ -1,4 +1,8 @@
 ![Build Project](https://github.com/tarikguney/command-core/workflows/Build%20Project/badge.svg?branch=master)
+[![NuGet version (CommandCore.Library)](https://img.shields.io/nuget/v/CommandCore.Library.svg)](https://www.nuget.org/packages/CommandCore.Library/)
+![GitHub](https://img.shields.io/github/license/tarikguney/command-core)
+
+<img src="./command-core-logo.png" height="100px"/>
 
 A simple command line parsing library that helps creating CLI apps using MVC pattern.
 
