@@ -9,6 +9,9 @@
         <Authors>Tarik Guney</Authors>
         <PackageId>CommandCore.Library</PackageId>
         <Description>A simple command line parsing library that helps creating CLI apps using MVC pattern. There are many command line parsing libraries out there, but most of them are unnecessarily complicated. Command Core library is built using a well-understood desing pattern: MVC. It cleanly separates the building blocks and makes the CLI development a scalable, extensible, and more importantly simpler endeavor.You can find more information and the source code of this project at its Github page https://github.com/tarikguney/command-core</Description>
+        <RepositoryUrl>https://github.com/tarikguney/command-core.git</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageProjectUrl>https://www.nuget.org/packages/CommandCore.Library/</PackageProjectUrl>
     </PropertyGroup>
 
     <ItemGroup>
