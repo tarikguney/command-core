@@ -10,7 +10,7 @@
         <Description>CommandCore.LightIoC offers lightweight inversion of control capabilities, specifically designed for CommandCore.Library, which provides MVC-style command line application development. You can find more information as well the source code of both libraries at their Github page: https://github.com/tarikguney/command-core.</Description>
         <RepositoryUrl>https://github.com/tarikguney/command-core.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageProjectUrl>https://www.nuget.org/packages/CommandCore.LightIoC/</PackageProjectUrl>]
+        <PackageProjectUrl>https://www.nuget.org/packages/CommandCore.LightIoC/</PackageProjectUrl>
     </PropertyGroup>
     
     <ItemGroup>
