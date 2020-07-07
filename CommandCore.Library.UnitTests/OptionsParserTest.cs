@@ -42,7 +42,7 @@ namespace CommandCore.Library.UnitTests
             Assert.NotNull(optionsObject);
             Assert.Equal("tarik", optionsObject.Name);
             Assert.Equal(33, optionsObject.Age);
-            Assert.Equal(true, optionsObject.Male);
+            Assert.True(optionsObject.Male);
         }
 
         [Fact]
@@ -62,7 +62,22 @@ namespace CommandCore.Library.UnitTests
             Assert.NotNull(optionsObject);
             Assert.Equal("tarik", optionsObject.Name);
             Assert.Equal(0, optionsObject.Age);
-            Assert.Equal(true, optionsObject.Male);
+            Assert.True(optionsObject.Male);
+        }
+
+        [Fact]
+        public void When_Nothing_Is_Passed_Options_Get_Their_Default_Values()
+        {
+            IOptionsParser parser = new OptionsParser();
+            var optionsObject = (TestOptions) parser.CreatePopulatedOptionsObject(typeof(TestVerb), new ParsedVerb()
+            {
+                VerbName = "TestVerb",
+                Options = new Dictionary<string, string>()
+            });
+            Assert.NotNull(optionsObject);
+            Assert.Null(optionsObject.Name);
+            Assert.Equal(0, optionsObject.Age);
+            Assert.False(optionsObject.Male);
         }
     }
 }
