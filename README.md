@@ -76,7 +76,7 @@ public static int Main(string[] args)
 }
 ```
 
-That's all, and it will be all. The whole idea of this library is to simplify the console application command line argument parsing.
+That's all, and it will be all. 
 
 ## Generate help automatically
 
