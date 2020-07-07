@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using System.Runtime.Loader;
 using CommandCore.Library.Attributes;
 using CommandCore.Library.Interfaces;
 using CommandCore.Library.PublicBase;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using Xunit;
 
 namespace CommandCore.Library.UnitTests
