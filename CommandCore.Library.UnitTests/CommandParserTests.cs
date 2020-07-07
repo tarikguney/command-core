@@ -56,7 +56,7 @@ namespace CommandCore.Library.UnitTests
             Assert.Equal("default", parsedVerb.VerbName);
             Assert.Null(parsedVerb.Options);
         }
-        
+
         [Fact]
         public void When_Passed_Null_Arguments_Default_Verb_Selected()
         {
@@ -70,7 +70,7 @@ namespace CommandCore.Library.UnitTests
         public void When_Passed_Alias_Parsed_Properly()
         {
             var commandParser = new CommandParser();
-            var arguments = new string[]
+            var arguments = new[]
             {
                 "-t", "test",
                 "--name", "tarik",
@@ -78,11 +78,34 @@ namespace CommandCore.Library.UnitTests
             };
             var parsedVerb = commandParser.ParseCommand(arguments);
             Assert.Equal("default", parsedVerb.VerbName);
-            Assert.Equal(new Dictionary<string,string>()
+            Assert.Equal(new Dictionary<string, string>()
             {
-                {"t","test"},
-                {"name","tarik"},
-                {"g","guney"}
+                {"t", "test"},
+                {"name", "tarik"},
+                {"g", "guney"}
+            }, parsedVerb.Options);
+        }
+
+        [Fact]
+        public void When_Alias_And_Full_Verbs_Randomized_In_Order_They_Are_Parsed_Properly()
+        {
+            var commandParser = new CommandParser();
+            var arguments = new[]
+            {
+                "-t", "test",
+                "--name", "tarik",
+                "-g", "guney",
+                "-hello", "world"
+            };
+
+            var parsedVerb = commandParser.ParseCommand(arguments);
+            Assert.Equal("default", parsedVerb.VerbName);
+            Assert.Equal(new Dictionary<string, string>()
+            {
+                {"t", "test"},
+                {"name", "tarik"},
+                {"g", "guney"},
+                {"hello", "world"}
             }, parsedVerb.Options);
         }
     }

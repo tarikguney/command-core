@@ -32,7 +32,7 @@ namespace CommandCore.Library
                     ? parsedVerb.Options[parameterName]
                     : !string.IsNullOrEmpty(parameterAlias) && parsedVerb.Options.ContainsKey(parameterAlias)
                         ? parsedVerb.Options[parameterAlias]
-                        : GetDefaultValue(propertyInfo.PropertyType);
+                        : GetDefaultValue(propertyInfo.PropertyType).ToString();
                 
                 //var argumentValue = parsedVerb.Options![parameterName];
                 // Parsing the string value to the type stated by the property type of the Options object.
