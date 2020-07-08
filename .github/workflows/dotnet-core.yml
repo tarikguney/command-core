@@ -25,7 +25,6 @@ jobs:
       run: dotnet test --no-restore --verbosity normal
     - name: Generate coverage report
       run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
-      working-directory: .CommandCore.Library.UnitTests/
     - name: Publish CommandCore.Library.UnitTests to Coveralls
       uses: coverallsapp/github-action@master
       with:
