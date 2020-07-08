@@ -1,4 +1,5 @@
 ![Build Project](https://github.com/tarikguney/command-core/workflows/Build%20Project/badge.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/tarikguney/command-core/badge.svg?branch=master)](https://coveralls.io/github/tarikguney/command-core?branch=master)
 [![NuGet version (CommandCore.Library)](https://img.shields.io/nuget/v/CommandCore.Library.svg)](https://www.nuget.org/packages/CommandCore.Library/)
 ![GitHub](https://img.shields.io/github/license/tarikguney/command-core)
 
