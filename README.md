@@ -10,10 +10,6 @@ There are many command line parsing libraries out there, but most of them are un
 
 Each verb and their arguments are represented with three simple classes inheriting from the following base classes: `VerbBase`, `VerbViewBase`, and `VerbOptionsBase`. The verbs are parsed into these classes and the clases are populated with the necessary properties for the consumers to access. For instance, your Verb class will include a property called `Options` through which you can easily access the CLI arguments passed as part of the verb.
 
-### Under active development!
-> This library has not been published yet. The readme.md file explains the vision of this library. It may change in the future. However, the idea of this library will always be the same: Make CLI development easier and simpler. Once published, it can be downloaded from Nuget as a package.
-
-
 ## How to use it?
 
 Let's start with a simple command:
@@ -80,7 +76,7 @@ public static int Main(string[] args)
 }
 ```
 
-That's all, and it will be all. The whole idea of this library is to simplify the console application command line argument parsing.
+That's all, and it will be all. 
 
 ## Generate help automatically
 
