@@ -24,11 +24,10 @@ jobs:
     - name: Test
       run: dotnet test --no-restore --verbosity normal
     - name: Generate coverage report
-        run: |
-          cd ./MyLibrary.Tests/
-          dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
-    - name: Publish coverage report to coveralls.io
+      run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+      working-directory: .CommandCore.Library.UnitTests/
+    - name: Publish CommandCore.Library.UnitTests to Coveralls
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ./MyLibrary.Tests/TestResults/coverage.info 
+        path-to-lcov: ./CommandCore.Library.UnitTests/TestResults/coverage.info 
