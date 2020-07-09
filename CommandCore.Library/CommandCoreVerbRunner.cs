@@ -23,41 +23,40 @@ namespace CommandCore.Library
             _optionsParser = optionsParser;
             _helpGenerator = helpGenerator;
         }
-        
+
         public int Run(string[] args)
         {
-            try
+            if (args.Length > 0 && args[0] == "--help")
             {
-                if (args.Length > 0 && args[0] == "--help")
-                {
-                    var help = _helpGenerator.Build();
-                    Console.WriteLine(help);
-                    return 0;
-                }
-                
-                var parsedVerb = _commandParser.ParseCommand(args);
-                var verbType = _verbTypeFinder.FindByName(parsedVerb.VerbName!);
-                var options = _optionsParser.CreatePopulatedOptionsObject(verbType!, parsedVerb);
-
-                var verbObject = (IVerbRunner) Activator.CreateInstance(verbType!)!;
-
-                if (options != null)
-                {
-                    var optionsPropertyInfo = verbType!.GetProperty("Options");
-                    optionsPropertyInfo!.SetValue(verbObject, options);
-                }
-                
-                VerbViewBase view = verbObject.Run();
-                // Running the view to render the result to the console (stdout).
-                // This could be a good extension point for various redirections.
-                view.RenderResponse();
+                var help = _helpGenerator.Build();
+                Console.WriteLine(help);
                 return 0;
             }
-            catch (Exception e)
+
+            var parsedVerb = _commandParser.ParseCommand(args);
+            var verbType = _verbTypeFinder.FindByName(parsedVerb.VerbName!);
+
+            if (verbType == null)
             {
-                Console.WriteLine(e.Message);
-                return 1;
+                throw new InvalidOperationException(
+                    "Cannot find any verb class that can handle verbs. If your application does not have verbs, add a verb with the name default!");
             }
+
+            var options = _optionsParser.CreatePopulatedOptionsObject(verbType!, parsedVerb);
+
+            var verbObject = (IVerbRunner) Activator.CreateInstance(verbType!)!;
+
+            if (options != null)
+            {
+                var optionsPropertyInfo = verbType!.GetProperty("Options");
+                optionsPropertyInfo!.SetValue(verbObject, options);
+            }
+
+            VerbViewBase view = verbObject.Run();
+            // Running the view to render the result to the console (stdout).
+            // This could be a good extension point for various redirections.
+            view.RenderResponse();
+            return 0;
         }
     }
 }
