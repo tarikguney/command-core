@@ -7,22 +7,42 @@ namespace CommandCore.Library.UnitTests
 {
     public class CommandVerbRunnerTests
     {
+        private readonly Mock<ICommandParser> _commandParseMock;
+        private readonly Mock<IVerbTypeFinder> _verbTypeFinder;
+        private readonly Mock<IOptionsParser> _optionsParser;
+        private readonly Mock<IHelpGenerator> _helpGeneratorMock;
+
+        public CommandVerbRunnerTests()
+        {
+            _commandParseMock = new Mock<ICommandParser>();
+            _verbTypeFinder = new Mock<IVerbTypeFinder>();
+            _optionsParser = new Mock<IOptionsParser>();
+            _helpGeneratorMock = new Mock<IHelpGenerator>();
+        }
+        
         [Fact]
         public void If_There_Is_No_Verb_Type_Then_Invalid_Operation_Exception_Is_Thrown()
         {
-            var commandParseMock = new Mock<ICommandParser>();
-            var verbTypeFinder = new Mock<IVerbTypeFinder>();
-            var optionsParser = new Mock<IOptionsParser>();
-            var helpGeneratorMock = new Mock<IHelpGenerator>();
-            
-            commandParseMock.Setup(a => a.ParseCommand(It.IsAny<string[]>()))
+            _commandParseMock.Setup(a => a.ParseCommand(It.IsAny<string[]>()))
                 .Returns(new ParsedVerb() {VerbName = "default"});
-            verbTypeFinder.Setup(a => a.FindByName(It.IsAny<string>())).Returns((Type?) null);
+            _verbTypeFinder.Setup(a => a.FindByName(It.IsAny<string>())).Returns((Type?) null);
             
-            var runner = new CommandCoreVerbRunner(commandParseMock.Object, verbTypeFinder.Object, optionsParser.Object,
-                helpGeneratorMock.Object);
+            var runner = new CommandCoreVerbRunner(_commandParseMock.Object, _verbTypeFinder.Object, _optionsParser.Object,
+                _helpGeneratorMock.Object);
 
             Assert.Throws<InvalidOperationException>(() => runner.Run(new string[0]));
+        }
+
+        [Fact]
+        public void If_Help_Flag_Passed_Help_Generator_Invoked()
+        {
+            var runner = new CommandCoreVerbRunner(_commandParseMock.Object, _verbTypeFinder.Object, _optionsParser.Object,
+                _helpGeneratorMock.Object);
+
+            runner.Run(new string[] {"--help"});
+            // Normally I don't like verifying the internal calls like this, but for this is an exception since I need
+            // to know if the generator is called. Perhaps, in the future, I can check if something is returned.
+            _helpGeneratorMock.Verify(a=>a.Build());
         }
     }
 }
