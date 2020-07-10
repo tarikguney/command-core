@@ -28,6 +28,11 @@ namespace CommandCore.Library
 
         public Type? FindByName(string verbName)
         {
+            if (string.IsNullOrWhiteSpace(verbName))
+            {
+                throw new InvalidOperationException($"{nameof(verbName)} may not be empty or null.");
+            }
+            
             // Stopping when the verb is found would be more performing, but this implementation is better for
             // future optimization like caching.
             var allTypes = FindAll();

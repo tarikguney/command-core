@@ -1,35 +1,12 @@
 using System.Collections.Generic;
-using CommandCore.Library.Attributes;
 using CommandCore.Library.Interfaces;
-using CommandCore.Library.PublicBase;
+using CommandCore.Library.UnitTests.TestTypes;
 using Xunit;
 
 namespace CommandCore.Library.UnitTests
 {
     public class OptionsParserTest
     {
-        private class TestOptions : VerbOptionsBase
-        {
-            [OptionName("Name", Alias = "n")]
-            public string Name { get; set; }
-
-            [OptionName("Age", Alias = "a")]
-            public int Age { get; set; }
-
-            [OptionName("ismale", Alias = "m")]
-            public bool Male { get; set; }
-
-            public decimal Money { get; set; }
-        }
-
-        private class TestVerb : VerbBase<TestOptions>
-        {
-            public override VerbViewBase Run()
-            {
-                throw new System.NotImplementedException();
-            }
-        }
-
         [Fact]
         public void When_Every_Thing_Is_Simple_Things_Work_As_Expected()
         {
