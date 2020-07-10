@@ -30,8 +30,15 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: ./CommandCore.Library.UnitTests/TestResults/coverage.info
+        parallel: true
     - name: Publish CommandCore.LightIoC.UnitTests to Coveralls
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ./CommandCore.LightIoC.UnitTests/TestResults/coverage.info 
+        path-to-lcov: ./CommandCore.LightIoC.UnitTests/TestResults/coverage.info
+        parallel: true
+    - name: Publishing to Coveralls is complete
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        parallel-finished: true
