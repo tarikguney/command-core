@@ -13,6 +13,7 @@
         <RepositoryType>git</RepositoryType>
         <PackageProjectUrl>https://www.nuget.org/packages/CommandCore.Library/</PackageProjectUrl>
         <PackageLicenseUrl>https://github.com/tarikguney/command-core/blob/master/LICENSE</PackageLicenseUrl>
+        <PackageIconUrl>https://raw.githubusercontent.com/tarikguney/command-core/master/logo.png</PackageIconUrl>
     </PropertyGroup>
 
     <ItemGroup>
