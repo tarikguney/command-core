@@ -23,10 +23,15 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     - name: Test
       run: dotnet test --no-restore --verbosity normal
-    - name: Generate coverage report
+    - name: Generate coverage reports for Unit Test projects
       run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
     - name: Publish CommandCore.Library.UnitTests to Coveralls
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ./CommandCore.Library.UnitTests/TestResults/coverage.info 
+        path-to-lcov: ./CommandCore.Library.UnitTests/TestResults/coverage.info
+    - name: Publish CommandCore.Library.LightIoC to Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: ./CommandCore.LightIoC.UnitTests/TestResults/coverage.info 
