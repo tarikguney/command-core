@@ -18,8 +18,9 @@ namespace CommandCore.Library
             var helpBuilder = new StringBuilder();
             var allTypes = _verbTypeFinder.FindAll();
 
-            if (allTypes.Count == 0)
+            if (allTypes == null || allTypes.Count == 0)
             {
+                helpBuilder.Append("No help is found!");
                 return helpBuilder;
             }
             
