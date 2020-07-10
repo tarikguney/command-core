@@ -30,7 +30,7 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: ./CommandCore.Library.UnitTests/TestResults/coverage.info
-    - name: Publish CommandCore.Library.LightIoC to Coveralls
+    - name: Publish CommandCore.LightIoC.UnitTests to Coveralls
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
