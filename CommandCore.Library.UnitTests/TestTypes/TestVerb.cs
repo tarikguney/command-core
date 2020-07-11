@@ -6,7 +6,7 @@ namespace CommandCore.Library.UnitTests.TestTypes
     {
         public override VerbViewBase Run()
         {
-            throw new System.NotImplementedException();
+            return new TestView();
         }
     }
 }
