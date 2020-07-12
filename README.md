@@ -57,6 +57,10 @@ public class AddOptions : VerbOptionsBase
 }
 ```
 
+## Integrated IoC Container for Dependency Injection
+
+CommandCore comes with an in-house IoC container named `CommandCore.LightIoC`, and it allows you to register your own services and inject them to the verb classes. Check out this page for more information: [Dependency Injection with LightIoC Container](https://github.com/tarikguney/command-core/wiki/Dependency-Injection-with-LightIoC-Container)
+
 ## Roadmap
 
 1. Add routing mechanism, similar to Asp.NET Core MVC. Routing mechanism will help verbs to be routed to a desired class pattern for more complicated scenarios.
