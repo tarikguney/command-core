@@ -1,3 +1,4 @@
+using System;
 using CommandCore.Library.Interfaces;
 using CommandCore.LightIoC;
 using IServiceProvider = CommandCore.LightIoC.IServiceProvider;
@@ -11,11 +12,23 @@ namespace CommandCore.Library
     /// </summary>
     public class CommandCoreApp
     {
+        private Action<IServiceProvider> _configureServiceAction;
+        
         public int Parse(string[] args)
         {
             var serviceProvider = new BasicServiceProvider();
             RegisterServices(serviceProvider);
+            _configureServiceAction?.Invoke(serviceProvider);
+            serviceProvider.Register(typeof(IServiceProvider), serviceProvider);
             return serviceProvider.Resolve<ICommandCoreVerbRunner>().Run(args);
+        }
+
+        /// <summary>
+        /// Register and configure custom dependencies to the LightIoC container.
+        /// </summary>
+        public void ConfigureServices(Action<IServiceProvider> customServiceProvider)
+        {
+            _configureServiceAction = customServiceProvider;
         }
 
         private void RegisterServices(IServiceProvider serviceProvider)

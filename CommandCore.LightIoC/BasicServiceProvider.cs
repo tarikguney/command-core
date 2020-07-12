@@ -10,22 +10,74 @@ namespace CommandCore.LightIoC
     {
         private readonly ConcurrentDictionary<Type, Type> _typeRegistry = new ConcurrentDictionary<Type, Type>();
 
+        private readonly ConcurrentDictionary<Type, object>
+            _instanceRegistry = new ConcurrentDictionary<Type, object>();
+
         /// <summary>
         /// Registers a service with its concrete type to build the dependency tree for a requested type.
         /// </summary>
         /// <exception cref="InvalidOperationException">If the concrete type is not instantiable. For instance, using an abstract class for the concrete type throws this exception.</exception>
-        public void Register<S, T>() where T : S
+        public void Register<S, T>()
         {
             if (typeof(T).IsAbstract)
             {
-                throw new InvalidOperationException($"Type {typeof(T).FullName} may not be abstract. Abstract classes cannot be instantiated, hence not allowed to be registered.");
+                throw new InvalidOperationException(
+                    $"Type {typeof(T).FullName} may not be abstract. Abstract classes cannot be instantiated, hence not allowed to be registered.");
             }
+            
+            if (!typeof(S).IsAssignableFrom(typeof(T)))
+            {
+                throw new InvalidOperationException(
+                    $"Type {typeof(T).FullName} is not assignable to {typeof(S).FullName}");
+            }
+
             _typeRegistry[typeof(S)] = typeof(T);
+        }
+
+        public void Register(Type service, Type implementation)
+        {
+            if (implementation.IsAbstract)
+            {
+                throw new InvalidOperationException(
+                    $"Type {implementation.FullName} may not be abstract. Abstract classes cannot be instantiated, hence not allowed to be registered.");
+            }
+
+            if (!service.IsAssignableFrom(implementation))
+            {
+                throw new InvalidOperationException(
+                    $"Type {implementation.FullName} is not assignable to {service.FullName}");
+            }
+            
+            _typeRegistry[service] = implementation;
+        }
+
+        public void Register(Type service, object implementation)
+        {
+            if (implementation == null)
+            {
+                throw new InvalidOperationException(
+                    $"Service type {service.FullName} may not be registered with a null implementation instance.");
+            }
+
+            var implType = implementation.GetType();
+            if (!service.IsAssignableFrom(implType))
+            {
+                throw new InvalidOperationException(
+                    $"Type {implType.FullName} is not assignable to {service.FullName}");
+            }
+
+            _typeRegistry[service] = implementation.GetType();
+            _instanceRegistry[service] = implementation;
         }
 
         public T Resolve<T>()
         {
             return (T) CreateInstance(typeof(T));
+        }
+
+        public object Resolve(Type serviceType)
+        {
+            return CreateInstance(serviceType);
         }
 
         /// <summary>
@@ -37,12 +89,13 @@ namespace CommandCore.LightIoC
             {
                 throw new KeyNotFoundException($"Type {type.FullName} is not registered to the LightIoC container.");
             }
-            
+
             var registeredType = _typeRegistry[type];
             var constructors = registeredType.GetConstructors(BindingFlags.Instance | BindingFlags.Public);
             if (constructors.Length > 1)
             {
-                throw new Exception($"There must be only one constructor method defined for type {registeredType.FullName}");
+                throw new Exception(
+                    $"There must be only one constructor method defined for type {registeredType.FullName}");
             }
 
             // This is not really possible since if nothing is defined, the parameterless constructor becomes the default one.
@@ -61,6 +114,12 @@ namespace CommandCore.LightIoC
             var instances = new List<object>();
             foreach (var injectedType in injectedTypes)
             {
+                if (_instanceRegistry.ContainsKey(injectedType))
+                {
+                    instances.Add(_instanceRegistry[injectedType]);
+                    continue;
+                }
+
                 instances.Add(CreateInstance(injectedType));
             }
 

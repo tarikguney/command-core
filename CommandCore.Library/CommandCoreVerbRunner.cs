@@ -1,6 +1,7 @@
 using System;
 using CommandCore.Library.Interfaces;
 using CommandCore.Library.PublicBase;
+using IServiceProvider = CommandCore.LightIoC.IServiceProvider;
 
 namespace CommandCore.Library
 {
@@ -14,14 +15,16 @@ namespace CommandCore.Library
         private readonly IVerbTypeFinder _verbTypeFinder;
         private readonly IOptionsParser _optionsParser;
         private readonly IHelpGenerator _helpGenerator;
+        private readonly IServiceProvider _serviceProvider;
 
         public CommandCoreVerbRunner(ICommandParser commandParser, IVerbTypeFinder verbTypeFinder,
-            IOptionsParser optionsParser, IHelpGenerator helpGenerator)
+            IOptionsParser optionsParser, IHelpGenerator helpGenerator, IServiceProvider serviceProvider)
         {
             _commandParser = commandParser;
             _verbTypeFinder = verbTypeFinder;
             _optionsParser = optionsParser;
             _helpGenerator = helpGenerator;
+            _serviceProvider = serviceProvider;
         }
 
         public int Run(string[] args)
@@ -43,8 +46,10 @@ namespace CommandCore.Library
             }
 
             var options = _optionsParser.CreatePopulatedOptionsObject(verbType!, parsedVerb);
-
-            var verbObject = (IVerbRunner) Activator.CreateInstance(verbType!)!;
+            // The reason why we are registering and resolving it is because to inject the dependencies
+            // the verb type might have.
+            _serviceProvider.Register(verbType, verbType);
+            var verbObject = (IVerbRunner) _serviceProvider.Resolve(verbType);
 
             if (options != null)
             {
