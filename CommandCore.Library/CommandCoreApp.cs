@@ -22,7 +22,7 @@ namespace CommandCore.Library
             return serviceProvider.Resolve<ICommandCoreVerbRunner>().Run(args);
         }
 
-        public void AddCustomServiceProvider(Action<IServiceProvider> customServiceProvider)
+        public void ConfigureServices(Action<IServiceProvider> customServiceProvider)
         {
             _configureServiceAction = customServiceProvider;
         }
