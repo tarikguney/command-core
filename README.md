@@ -49,8 +49,6 @@ public class AddOptions : VerbOptionsBase
     [OptionName("lastname")]
     public string LastName {get;set;}
 
-    // CommandCore supports various types like Boolean, and it automatically
-    // converts them to their corresponding types specified with the Options properties.
     [OptionName("haslicense")]
     public bool? HasLicense {get;set;}
     
