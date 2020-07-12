@@ -19,9 +19,13 @@ namespace CommandCore.Library
             var serviceProvider = new BasicServiceProvider();
             RegisterServices(serviceProvider);
             _configureServiceAction?.Invoke(serviceProvider);
+            serviceProvider.Register(typeof(IServiceProvider), serviceProvider);
             return serviceProvider.Resolve<ICommandCoreVerbRunner>().Run(args);
         }
 
+        /// <summary>
+        /// Register and configure custom dependencies to the LightIoC container.
+        /// </summary>
         public void ConfigureServices(Action<IServiceProvider> customServiceProvider)
         {
             _configureServiceAction = customServiceProvider;
