@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using CommandCore.Library.Interfaces;
 using CommandCore.Library.UnitTests.TestTypes;
+using CommandCore.LightIoC;
 using Moq;
 using Xunit;
 
@@ -13,6 +14,7 @@ namespace CommandCore.Library.UnitTests
         private readonly Mock<IVerbTypeFinder> _verbTypeFinder;
         private readonly Mock<IOptionsParser> _optionsParser;
         private readonly Mock<IHelpGenerator> _helpGeneratorMock;
+        private readonly LightIoC.IServiceProvider _serviceProviderMock;
 
         public CommandVerbRunnerTests()
         {
@@ -20,6 +22,7 @@ namespace CommandCore.Library.UnitTests
             _verbTypeFinder = new Mock<IVerbTypeFinder>();
             _optionsParser = new Mock<IOptionsParser>();
             _helpGeneratorMock = new Mock<IHelpGenerator>();
+            _serviceProviderMock = new BasicServiceProvider();
         }
 
         [Fact]
@@ -31,7 +34,7 @@ namespace CommandCore.Library.UnitTests
 
             var runner = new CommandCoreVerbRunner(_commandParseMock.Object, _verbTypeFinder.Object,
                 _optionsParser.Object,
-                _helpGeneratorMock.Object);
+                _helpGeneratorMock.Object, _serviceProviderMock);
 
             Assert.Throws<InvalidOperationException>(() => runner.Run(new string[0]));
         }
@@ -41,7 +44,7 @@ namespace CommandCore.Library.UnitTests
         {
             var runner = new CommandCoreVerbRunner(_commandParseMock.Object, _verbTypeFinder.Object,
                 _optionsParser.Object,
-                _helpGeneratorMock.Object);
+                _helpGeneratorMock.Object, _serviceProviderMock);
 
             runner.Run(new string[] {"--help"});
             // Normally I don't like verifying the internal calls like this, but for this is an exception since I need
@@ -74,7 +77,7 @@ namespace CommandCore.Library.UnitTests
 
             var runner = new CommandCoreVerbRunner(_commandParseMock.Object, _verbTypeFinder.Object,
                 _optionsParser.Object,
-                _helpGeneratorMock.Object);
+                _helpGeneratorMock.Object, _serviceProviderMock);
 
             Assert.Equal(0, runner.Run(args));
         }

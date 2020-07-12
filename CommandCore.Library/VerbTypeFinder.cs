@@ -19,7 +19,7 @@ namespace CommandCore.Library
 
         public IReadOnlyList<Type> FindAll()
         {
-            // TODO using getentryassembly might not be the perfect solution. Needs more testing here.
+            // TODO using GetEntryAssembly() might not be the perfect solution. Needs more testing here.
             var allTypes = _entryAssemblyProvider.GetEntryAssembly().GetTypes()
                 .Where(a => a.BaseType != null && a.BaseType!.IsGenericType &&
                             a.BaseType.GetGenericTypeDefinition() == typeof(VerbBase<>)).ToList();
