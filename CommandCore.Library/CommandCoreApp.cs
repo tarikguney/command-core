@@ -1,3 +1,4 @@
+using System;
 using CommandCore.Library.Interfaces;
 using CommandCore.LightIoC;
 using IServiceProvider = CommandCore.LightIoC.IServiceProvider;
@@ -11,11 +12,19 @@ namespace CommandCore.Library
     /// </summary>
     public class CommandCoreApp
     {
+        private Action<IServiceProvider> _configureServiceAction;
+        
         public int Parse(string[] args)
         {
             var serviceProvider = new BasicServiceProvider();
             RegisterServices(serviceProvider);
+            _configureServiceAction?.Invoke(serviceProvider);
             return serviceProvider.Resolve<ICommandCoreVerbRunner>().Run(args);
+        }
+
+        public void AddCustomServiceProvider(Action<IServiceProvider> customServiceProvider)
+        {
+            _configureServiceAction = customServiceProvider;
         }
 
         private void RegisterServices(IServiceProvider serviceProvider)
