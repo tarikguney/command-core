@@ -2,6 +2,7 @@ using System;
 
 namespace CommandCore.Library.Attributes
 {
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class OptionNameAttribute : Attribute
     {
         public string Name { get; }
