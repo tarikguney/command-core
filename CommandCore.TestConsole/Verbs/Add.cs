@@ -6,6 +6,7 @@ using CommandCore.TestConsole.Views;
 namespace CommandCore.TestConsole.Verbs
 {
     [VerbName("add", Description = "Adds a new person to the system.")]
+    [VerbName("add-person", Description = "Adds a new person to the system.")]
     public class Add : VerbBase<AddOptions>
     {
         private readonly IOutputWriter _outputWriter;

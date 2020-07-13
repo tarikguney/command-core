@@ -11,6 +11,10 @@
     "CommandCore.GenerateHelp": {
       "commandName": "Project",
       "commandLineArgs": "--help"
+    },
+    "CommandCore.MultipleCommand": {
+      "commandName": "Project",
+      "commandLineArgs": "add-person --fn tarik --lastname guney --haslicense -o 33"
     }
   }
 }
