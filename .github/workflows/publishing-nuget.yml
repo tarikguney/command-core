@@ -1,5 +1,4 @@
-name: Publishing package version ${GITHUB_REF#refs/*/} to Nuget
-
+name: Publish Package to Nuget
 on:
   create:
     tags:
