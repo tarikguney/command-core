@@ -2,7 +2,7 @@ using System;
 
 namespace CommandCore.Library.Attributes
 {
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class VerbNameAttribute: Attribute
     {
         public string Name { get; }

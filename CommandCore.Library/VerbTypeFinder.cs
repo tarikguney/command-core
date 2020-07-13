@@ -39,8 +39,9 @@ namespace CommandCore.Library
             
             return allTypes.FirstOrDefault(verbType =>
             {
-                var verbNameAttribute = verbType.GetCustomAttribute<VerbNameAttribute>();
-                var verbTypeName = verbNameAttribute?.Name ?? verbType.Name;
+                var verbNameAttributes = verbType.GetCustomAttributes<VerbNameAttribute>();
+                // Applying multiple attributes are allowed in case multiple verb names are associated with a type.
+                var verbTypeName = verbNameAttributes?.FirstOrDefault(a=>a.Name == verbName)?.Name ?? verbType.Name;
                 // To keep the naming predictable and consistent, making a case-sensitive comparison here.
                 return verbTypeName.Equals(verbName);
             });

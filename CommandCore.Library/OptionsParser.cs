@@ -24,15 +24,24 @@ namespace CommandCore.Library
 
             foreach (var propertyInfo in optionProperties.Where(a => a.CanRead && a.CanWrite))
             {
-                var parameterNameAttribute = propertyInfo.GetCustomAttribute<OptionNameAttribute>();
-                var parameterName = parameterNameAttribute?.Name ?? propertyInfo.Name;
-                var parameterAlias = parameterNameAttribute?.Alias;
+                var parameterNameAttributes = propertyInfo.GetCustomAttributes<OptionNameAttribute>().ToList();
+
+                string? ParameterNameFunc() =>
+                    parameterNameAttributes?.FirstOrDefault(a => parsedVerb.Options.ContainsKey(a.Name))
+                        ?.Name;
+
+                string? ParameterAliasFunc() =>
+                    parameterNameAttributes.FirstOrDefault(a =>
+                            !string.IsNullOrWhiteSpace(a.Alias) && parsedVerb.Options.ContainsKey(a.Alias))
+                        ?.Alias;
+
+                var parameterName = ParameterNameFunc()
+                                    ?? ParameterAliasFunc()
+                                    ?? propertyInfo.Name;
 
                 var argumentValue = parsedVerb.Options!.ContainsKey(parameterName)
                     ? parsedVerb.Options[parameterName]
-                    : !string.IsNullOrEmpty(parameterAlias) && parsedVerb.Options.ContainsKey(parameterAlias)
-                        ? parsedVerb.Options[parameterAlias]
-                        : GetDefaultValue(propertyInfo.PropertyType);
+                    : GetDefaultValue(propertyInfo.PropertyType);
 
                 //var argumentValue = parsedVerb.Options![parameterName];
                 // Parsing the string value to the type stated by the property type of the Options object.
