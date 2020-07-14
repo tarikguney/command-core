@@ -99,5 +99,25 @@ namespace CommandCore.Library.UnitTests
             Assert.NotNull(optionsObject);
             Assert.Equal(12.55m, optionsObject.Money);
         }
+
+        [Fact]
+        public void When_There_Are_Multiple_Option_Bindings_One_Of_Them_Got_Selected()
+        {
+            IOptionsParser parser = new OptionsParser();
+            var optionsObject = (TestOptions) parser.CreatePopulatedOptionsObject(typeof(TestVerb), new ParsedVerb()
+            {
+                VerbName = "TestVerb",
+                Options = new Dictionary<string, string>()
+                {
+                    {"fn", "tarik"},
+                    {"a", "33"},
+                    {"im", "true"}
+                }
+            });
+            Assert.NotNull(optionsObject);
+            Assert.Equal("tarik", optionsObject.Name);
+            Assert.Equal(33, optionsObject.Age);
+            Assert.True(optionsObject.Male);
+        }
     }
 }
