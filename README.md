@@ -23,6 +23,7 @@ helloworld.exe add --firstname tarik --lastname guney --haslicense -a 33
 
 ```c#
 [VerbName("add")]
+[VerbName("add-person")]
 public class Add : VerbBase<AddOptions>
 {
     public VerbView Run(){
@@ -44,6 +45,7 @@ public class AddView : VerbViewBase<AddOptions>
 public class AddOptions : VerbOptionsBase
 {
     [OptionName("firstname")]
+    [OptionName("fn"), Alias="f")]
     public string FirstName {get;set;}
     
     [OptionName("lastname")]
