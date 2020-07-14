@@ -22,7 +22,7 @@ helloworld.exe add --firstname tarik --lastname guney --haslicense -a 33
 ```
 
 ```c#
-[VerbName("add", Description="Allows to add a new person to the database.)]
+[VerbName("add", Description="Allows to add a new person to the database.")]
 [VerbName("add-person")]
 public class Add : VerbBase<AddOptions>
 {
