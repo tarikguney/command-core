@@ -77,8 +77,10 @@ namespace CommandCore.Library
 
                     if (!string.IsNullOrWhiteSpace(firstAttribute?.Description))
                     {
-                        helpBuilder.AppendLine($": {firstAttribute!.Description}");
+                        helpBuilder.Append($": {firstAttribute!.Description}");
                     }
+
+                    helpBuilder.AppendLine();
                 }
             }
 
