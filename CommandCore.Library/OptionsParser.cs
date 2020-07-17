@@ -39,28 +39,16 @@ namespace CommandCore.Library
                                     ?? ParameterAliasFunc()
                                     ?? propertyInfo.Name;
 
-                var argumentValue = parsedVerb.Options!.ContainsKey(parameterName)
-                    ? parsedVerb.Options[parameterName]
-                    : GetDefaultValue(propertyInfo.PropertyType);
 
-                //var argumentValue = parsedVerb.Options![parameterName];
-                // Parsing the string value to the type stated by the property type of the Options object.
-                var converter = TypeDescriptor.GetConverter(propertyInfo.PropertyType);
-                // Doing ToString() because converter cannot convert from same type to same type such as int to int.
-                // Check if it is null, then no need to convert it since int cannot be null.
-                propertyInfo.SetValue(options,
-                    argumentValue == null ? null : converter.ConvertFrom(argumentValue.ToString()));
+                if (parsedVerb.Options!.ContainsKey(parameterName))
+                {
+                    var argumentValue = parsedVerb.Options[parameterName];
+                    var converter = TypeDescriptor.GetConverter(propertyInfo.PropertyType);
+                    propertyInfo.SetValue(options, converter.ConvertFrom(argumentValue));
+                }
             }
 
             return options!;
-        }
-
-        private object? GetDefaultValue(Type t)
-        {
-            if (t.IsValueType)
-                return Activator.CreateInstance(t);
-
-            return null;
         }
     }
 }

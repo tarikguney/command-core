@@ -5,6 +5,6 @@ namespace CommandCore.Library.Interfaces
 {
     internal interface IOptionsParser
     {
-        VerbOptionsBase CreatePopulatedOptionsObject(Type verbType, ParsedVerb parsedVerb);
+        VerbOptionsBase? CreatePopulatedOptionsObject(Type verbType, ParsedVerb parsedVerb);
     }
 }
