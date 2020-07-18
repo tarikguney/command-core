@@ -7,10 +7,10 @@ namespace CommandCore.TestConsole.Options
     {
         [OptionName("firstname", Description = "First name of the person provided.")]
         [OptionName("fn", Description = "First name of the person provided.")]
-        public string? FirstName { get; set; }
+        public string? FirstName { get; set; } = "tarik";
 
         [OptionName("lastname", Description = "Last name of the person provided.")]
-        public string? LastName { get; set; }
+        public string? LastName { get; set; } = "guney";
 
         [OptionName("haslicense", Alias = "hs", Description = "Indicates whether the person has a driver license")]
         public bool? HasLicense { get; set; }
