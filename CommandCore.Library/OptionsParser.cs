@@ -10,16 +10,16 @@ namespace CommandCore.Library
 {
     internal class OptionsParser : IOptionsParser
     {
-        public VerbOptionsBase? CreatePopulatedOptionsObject(Type verbType, ParsedVerb parsedVerb)
+        public VerbOptionsBase CreatePopulatedOptionsObject(Type verbType, ParsedVerb parsedVerb)
         {
             var verbOptionsType = verbType.BaseType!.GetGenericArguments()[0];
-            var options = (VerbOptionsBase?) Activator.CreateInstance(verbOptionsType);
+            var options = (VerbOptionsBase) Activator.CreateInstance(verbOptionsType)!;
             var optionProperties =
                 verbOptionsType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
             if (parsedVerb.Options == null)
             {
-                return null;
+                return options;
             }
 
             foreach (var propertyInfo in optionProperties.Where(a => a.CanRead && a.CanWrite))
