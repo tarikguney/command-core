@@ -49,9 +49,12 @@ namespace CommandCore.Library
                     if (propType.IsArray)
                     {
                         var elType = propType.GetElementType();
-                        var converter = TypeDescriptor.GetConverter(elType);
-                        var value = argumentValue.Select(a => converter.ConvertFrom(a)).ToArray();
-                        propertyInfo.SetValue(options, value);
+                        var array = Array.CreateInstance(elType, argumentValue.Count);
+                        for (var i = 0; i < argumentValue.Count; i++)
+                        {
+                            array.SetValue(Convert.ChangeType(argumentValue[i], elType), i);
+                        }
+                        propertyInfo.SetValue(options, array);
                     }
                     else if (propType.IsSubclassOf(typeof(IEnumerable<>)))
                     {
@@ -67,7 +70,7 @@ namespace CommandCore.Library
                     else
                     {
                         var converter = TypeDescriptor.GetConverter(propType);
-                        propertyInfo.SetValue(options, converter.ConvertFrom(argumentValue));
+                        propertyInfo.SetValue(options, converter.ConvertFrom(argumentValue[0]));
                     }
                 }
             }

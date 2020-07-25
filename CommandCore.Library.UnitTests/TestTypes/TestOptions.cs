@@ -17,6 +17,9 @@ namespace CommandCore.Library.UnitTests.TestTypes
         public bool Male { get; set; }
 
         public decimal Money { get; set; }
+        
+        [OptionName("countries")]
+        public string[] Countries { get; set; }
     }
 
 }
