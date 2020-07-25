@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using CommandCore.Library.Attributes;
 using CommandCore.Library.PublicBase;
@@ -24,6 +25,12 @@ namespace CommandCore.Library.UnitTests.TestTypes
 
         [OptionName("scores")]
         public List<int> Scores { get; set; }
+        
+        [OptionName("skills")]
+        public IReadOnlyList<string> Skills { get; set; }
+        
+        [OptionName("ids")]
+        public IList<double> Ids { get; set; }
     }
 
 }

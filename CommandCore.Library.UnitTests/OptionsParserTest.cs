@@ -20,7 +20,9 @@ namespace CommandCore.Library.UnitTests
                     {"Age", new List<string> {"33"}},
                     {"ismale", new List<string> {"true"}},
                     {"countries", new List<string> {"usa", "germany", "turkey"}},
-                    {"scores", new List<string> {"2", "3", "4"}}
+                    {"scores", new List<string> {"2", "3", "4"}},
+                    {"skills", new List<string> {"programming"}},
+                    {"ids", new List<string>()}
                 }
             });
             Assert.NotNull(optionsObject);
@@ -29,6 +31,9 @@ namespace CommandCore.Library.UnitTests
             Assert.True(optionsObject.Male);
             Assert.Equal(new List<string> {"usa", "germany", "turkey"}, optionsObject.Countries);
             Assert.Equal(new List<int> {2, 3, 4}, optionsObject.Scores);
+            IReadOnlyList<string> expectedSkills = new List<string>() {"programming"};
+            Assert.Equal(expectedSkills, optionsObject.Skills);
+            Assert.Null(optionsObject.Ids);
         }
 
         [Fact]

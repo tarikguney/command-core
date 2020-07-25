@@ -50,8 +50,24 @@ namespace CommandCore.Library
                     // it one, hopefully. But the idea is simple: A property type may be an array, a collection, or a scalar type.
                     // And, we are paring them accordingly.
                     var propType = propertyInfo.PropertyType;
+
+                    if (propType == typeof(bool))
+                    {
+                        propertyInfo.SetValue(options, argumentValues.Count <= 0 || bool.Parse(argumentValues[0]));
+                    }
+
+                    // Zero count means something for the boolean properties since what matters is whether the flag is present or not
+                    // But for the other properties, it means nothing, so skipping property set since the user might have 
+                    // assigned the properties a default value. We would not want to override it with null or default primitive type value.
+                    if (argumentValues.Count == 0)
+                    {
+                        continue;
+                    }
+
                     if (propType.IsArray)
                     {
+                        // Creating an instance of a new array using the property's array element type, and setting
+                        // the property value with it after filling it with the converted values. 
                         var elementType = propType.GetElementType()!;
                         var array = Array.CreateInstance(elementType, argumentValues.Count);
                         for (var i = 0; i < argumentValues.Count; i++)
@@ -62,9 +78,15 @@ namespace CommandCore.Library
                         propertyInfo.SetValue(options, array);
                     }
                     else if (propType.IsGenericType &&
-                             propType.GetGenericTypeDefinition().GetInterfaces().Any(a =>
-                                 a.IsGenericType && a.GetGenericTypeDefinition() == typeof(IList<>)))
+                             (propType.GetGenericTypeDefinition() == typeof(IList<>) ||
+                              propType.GetGenericTypeDefinition() == typeof(IReadOnlyList<>) ||
+                              propType.GetGenericTypeDefinition().GetInterfaces().Any(a =>
+                                  a.IsGenericType && (a.GetGenericTypeDefinition() == typeof(IList<>) ||
+                                                      a.GetGenericTypeDefinition() == typeof(IReadOnlyList<>)))))
+
                     {
+                        // Creating an instance of a generic list using the property's generic argument, and setting
+                        // the property value with it after filling it with the converted values. 
                         var elementType = propType.GetGenericArguments()[0];
                         var listType = typeof(List<>);
                         var constructedListType = listType.MakeGenericType(elementType);
@@ -75,10 +97,6 @@ namespace CommandCore.Library
                         }
 
                         propertyInfo.SetValue(options, instance);
-                    }
-                    else if (propType == typeof(bool))
-                    {
-                        propertyInfo.SetValue(options, argumentValues.Count <= 0 || bool.Parse(argumentValues[0]));
                     }
                     else
                     {
