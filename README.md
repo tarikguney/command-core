@@ -22,7 +22,7 @@ Check out this page to see what's changed with every new release: https://github
 If you are familar with MVC pattern in any framework, you will find CommandCore very familiar with them. Look at below to see how a simple command like the one below can be represented in your .NET application:
 
 ```bash
-helloworld.exe add --firstname tarik --lastname guney --haslicense -a 33
+helloworld.exe add --firstname tarik --lastname guney --haslicense -a 33 --id 1 2 3
 ```
 
 ```c#
