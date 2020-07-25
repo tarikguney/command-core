@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
@@ -43,8 +44,31 @@ namespace CommandCore.Library
                 if (parsedVerb.Options!.ContainsKey(parameterName))
                 {
                     var argumentValue = parsedVerb.Options[parameterName];
-                    var converter = TypeDescriptor.GetConverter(propertyInfo.PropertyType);
-                    propertyInfo.SetValue(options, converter.ConvertFrom(argumentValue));
+
+                    var propType = propertyInfo.PropertyType;
+                    if (propType.IsArray)
+                    {
+                        var elType = propType.GetElementType();
+                        var converter = TypeDescriptor.GetConverter(elType);
+                        var value = argumentValue.Select(a => converter.ConvertFrom(a)).ToArray();
+                        propertyInfo.SetValue(options, value);
+                    }
+                    else if (propType.IsSubclassOf(typeof(IEnumerable<>)))
+                    {
+                        var elType = propType.GetGenericArguments()[0];
+                        var converter = TypeDescriptor.GetConverter(elType);
+                        var value = argumentValue.Select(a => converter.ConvertFrom(a)).ToList();
+                        propertyInfo.SetValue(options, value);
+                    }
+                    else if (propType == typeof(bool))
+                    {
+                        propertyInfo.SetValue(options, argumentValue.Count <= 0 || bool.Parse(argumentValue[0]));
+                    }
+                    else
+                    {
+                        var converter = TypeDescriptor.GetConverter(propType);
+                        propertyInfo.SetValue(options, converter.ConvertFrom(argumentValue));
+                    }
                 }
             }
 
