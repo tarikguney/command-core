@@ -19,14 +19,16 @@ namespace CommandCore.Library.UnitTests
                     {"Name", new List<string> {"tarik"}},
                     {"Age", new List<string> {"33"}},
                     {"ismale", new List<string> {"true"}},
-                    {"countries", new List<string> {"usa", "germany", "turkey"}}
+                    {"countries", new List<string> {"usa", "germany", "turkey"}},
+                    {"scores", new List<string> {"2", "3", "4"}}
                 }
             });
             Assert.NotNull(optionsObject);
             Assert.Equal("tarik", optionsObject.Name);
             Assert.Equal(33, optionsObject.Age);
             Assert.True(optionsObject.Male);
-            Assert.Equal(optionsObject.Countries, new List<string> {"usa", "germany", "turkey"});
+            Assert.Equal(new List<string> {"usa", "germany", "turkey"}, optionsObject.Countries);
+            Assert.Equal(new List<int> {2, 3, 4}, optionsObject.Scores);
         }
 
         [Fact]

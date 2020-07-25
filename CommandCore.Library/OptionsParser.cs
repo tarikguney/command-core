@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -43,34 +44,43 @@ namespace CommandCore.Library
 
                 if (parsedVerb.Options!.ContainsKey(parameterName))
                 {
-                    var argumentValue = parsedVerb.Options[parameterName];
+                    var argumentValues = parsedVerb.Options[parameterName];
 
                     var propType = propertyInfo.PropertyType;
                     if (propType.IsArray)
                     {
-                        var elType = propType.GetElementType();
-                        var array = Array.CreateInstance(elType, argumentValue.Count);
-                        for (var i = 0; i < argumentValue.Count; i++)
+                        var elementType = propType.GetElementType()!;
+                        var array = Array.CreateInstance(elementType, argumentValues.Count);
+                        for (var i = 0; i < argumentValues.Count; i++)
                         {
-                            array.SetValue(Convert.ChangeType(argumentValue[i], elType), i);
+                            array.SetValue(Convert.ChangeType(argumentValues[i], elementType), i);
                         }
+
                         propertyInfo.SetValue(options, array);
                     }
-                    else if (propType.IsSubclassOf(typeof(IEnumerable<>)))
+                    else if (propType.IsGenericType &&
+                             propType.GetGenericTypeDefinition().GetInterfaces().Any(a =>
+                                 a.IsGenericType && a.GetGenericTypeDefinition() == typeof(IList<>)))
                     {
-                        var elType = propType.GetGenericArguments()[0];
-                        var converter = TypeDescriptor.GetConverter(elType);
-                        var value = argumentValue.Select(a => converter.ConvertFrom(a)).ToList();
-                        propertyInfo.SetValue(options, value);
+                        var elementType = propType.GetGenericArguments()[0];
+                        var listType = typeof(List<>);
+                        var constructedListType = listType.MakeGenericType(elementType);
+                        IList instance = (IList) Activator.CreateInstance(constructedListType)!;
+                        foreach (var arg in argumentValues)
+                        {
+                            instance.Add(Convert.ChangeType(arg, elementType));
+                        }
+
+                        propertyInfo.SetValue(options, instance);
                     }
                     else if (propType == typeof(bool))
                     {
-                        propertyInfo.SetValue(options, argumentValue.Count <= 0 || bool.Parse(argumentValue[0]));
+                        propertyInfo.SetValue(options, argumentValues.Count <= 0 || bool.Parse(argumentValues[0]));
                     }
                     else
                     {
                         var converter = TypeDescriptor.GetConverter(propType);
-                        propertyInfo.SetValue(options, converter.ConvertFrom(argumentValue[0]));
+                        propertyInfo.SetValue(options, converter.ConvertFrom(argumentValues[0]));
                     }
                 }
             }

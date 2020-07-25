@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CommandCore.Library.Attributes;
 using CommandCore.Library.PublicBase;
 
@@ -20,6 +21,9 @@ namespace CommandCore.Library.UnitTests.TestTypes
         
         [OptionName("countries")]
         public string[] Countries { get; set; }
+
+        [OptionName("scores")]
+        public List<int> Scores { get; set; }
     }
 
 }
