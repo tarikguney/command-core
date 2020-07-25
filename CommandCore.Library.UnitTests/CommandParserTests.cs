@@ -21,11 +21,11 @@ namespace CommandCore.Library.UnitTests
 
             Assert.NotNull(parsedVerb);
             Assert.Equal("add", parsedVerb.VerbName);
-            Assert.Equal(new Dictionary<string, string>
+            Assert.Equal(new Dictionary<string, List<string>>
             {
-                {"firstname", "tarik"},
-                {"lastname", "guney"},
-                {"zipcode", "55555"}
+                {"firstname", new List<string> {"tarik"}},
+                {"lastname", new List<string> {"guney"}},
+                {"zipcode", new List<string> {"55555"}}
             }, parsedVerb.Options);
         }
 
@@ -41,10 +41,10 @@ namespace CommandCore.Library.UnitTests
             var parsedVerb = commandParser.ParseCommand(arguments);
             Assert.NotEmpty(parsedVerb.VerbName);
             Assert.Equal("default", parsedVerb.VerbName);
-            Assert.Equal(new Dictionary<string, string>
+            Assert.Equal(new Dictionary<string, List<string>>
             {
-                {"firstname", "tarik"},
-                {"lastname", "guney"},
+                {"firstname", new List<string> {"tarik"}},
+                {"lastname", new List<string> {"guney"}},
             }, parsedVerb.Options);
         }
 
@@ -78,11 +78,11 @@ namespace CommandCore.Library.UnitTests
             };
             var parsedVerb = commandParser.ParseCommand(arguments);
             Assert.Equal("default", parsedVerb.VerbName);
-            Assert.Equal(new Dictionary<string, string>()
+            Assert.Equal(new Dictionary<string, List<string>>()
             {
-                {"t", "test"},
-                {"name", "tarik"},
-                {"g", "guney"}
+                {"t", new List<string> {"test"}},
+                {"name", new List<string> {"tarik"}},
+                {"g", new List<string> {"guney"}}
             }, parsedVerb.Options);
         }
 
@@ -100,12 +100,12 @@ namespace CommandCore.Library.UnitTests
 
             var parsedVerb = commandParser.ParseCommand(arguments);
             Assert.Equal("default", parsedVerb.VerbName);
-            Assert.Equal(new Dictionary<string, string>()
+            Assert.Equal(new Dictionary<string, List<string>>()
             {
-                {"t", "test"},
-                {"name", "tarik"},
-                {"g", "guney"},
-                {"hello", "world"}
+                {"t", new List<string> {"test"}},
+                {"name", new List<string> {"tarik"}},
+                {"g", new List<string> {"guney"}},
+                {"hello", new List<string> {"world"}}
             }, parsedVerb.Options);
         }
     }

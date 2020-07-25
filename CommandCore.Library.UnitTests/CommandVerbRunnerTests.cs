@@ -58,9 +58,9 @@ namespace CommandCore.Library.UnitTests
             var args = new[] {"--name", "tarik"};
             var testVerbInfo = new ParsedVerb()
             {
-                VerbName = "default", Options = new Dictionary<string, string>()
+                VerbName = "default", Options = new Dictionary<string, List<string>>()
                 {
-                    {"name", "tarik"}
+                    {"name", new List<string> {"tarik"}}
                 }
             };
             _commandParseMock.Setup(a => a.ParseCommand(It.IsAny<string[]>()))
