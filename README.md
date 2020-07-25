@@ -35,10 +35,11 @@ public class AddView : VerbViewBase<AddOptions>
 {
     public override void RenderResponse(){
         Console.WriteLine(
-            $"FirstName: {_options!.FirstName}\n" +
-            $"Last Name: {_options!.LastName}\n" +
-            $"Has License: {_options!.HasLicense}\n" +
-            $"Age: {_options.Age}");
+             $"FirstName: {_options!.FirstName}\n" +
+             $"Last Name: {_options!.LastName}\n" +
+             $"Has License: {_options!.HasLicense}\n" +
+             $"Age: {_options.Age}\n" +
+             $"Ids: {_options.Ids.Select(a => a.ToString()).Aggregate((a, b) => a + "," + b)}");
     }
 }
 
@@ -56,6 +57,10 @@ public class AddOptions : VerbOptionsBase
     
     [OptionName("age", Alias="a")]
     public int Age {get;set;}
+
+    [OptionName("id")]
+    public List<int> Ids { get; set; }
+
 }
 ```
 

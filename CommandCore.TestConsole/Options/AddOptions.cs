@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CommandCore.Library.Attributes;
 using CommandCore.Library.PublicBase;
 
@@ -18,5 +19,8 @@ namespace CommandCore.TestConsole.Options
         [OptionName("age", Alias = "a")]
         [OptionName("old", Alias = "o")]
         public int Age { get; set; }
+        
+        [OptionName("id")]
+        public List<int> Ids { get; set; }
     }
 }

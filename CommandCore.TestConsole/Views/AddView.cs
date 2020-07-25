@@ -1,3 +1,4 @@
+using System.Linq;
 using CommandCore.Library.PublicBase;
 using CommandCore.TestConsole.Options;
 
@@ -20,7 +21,8 @@ namespace CommandCore.TestConsole.Views
                 $"FirstName: {_options!.FirstName}\n" +
                 $"Last Name: {_options!.LastName}\n" +
                 $"Has License: {_options!.HasLicense}\n" +
-                $"Age: {_options.Age}");
+                $"Age: {_options.Age}\n" +
+                $"Ids: {_options.Ids.Select(a => a.ToString()).Aggregate((a, b) => a + "," + b)}");
         }
     }
 }

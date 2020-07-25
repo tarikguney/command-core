@@ -6,7 +6,7 @@
       "environmentVariables": {
         
       },
-      "commandLineArgs": "add --firstname tarik --lastname guney --haslicense -a 33"
+      "commandLineArgs": "add --firstname tarik --lastname guney --haslicense -a 33 --id 1 2 3"
     },
     "CommandCore.GenerateHelp": {
       "commandName": "Project",
