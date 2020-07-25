@@ -14,17 +14,26 @@ namespace CommandCore.Library.UnitTests
             var optionsObject = (TestOptions) parser.CreatePopulatedOptionsObject(typeof(TestVerb), new ParsedVerb()
             {
                 VerbName = "TestVerb",
-                Options = new Dictionary<string, string>()
+                Options = new Dictionary<string, List<string>>()
                 {
-                    {"Name", "tarik"},
-                    {"Age", "33"},
-                    {"ismale", "true"}
+                    {"Name", new List<string> {"tarik"}},
+                    {"Age", new List<string> {"33"}},
+                    {"ismale", new List<string> {"true"}},
+                    {"countries", new List<string> {"usa", "germany", "turkey"}},
+                    {"scores", new List<string> {"2", "3", "4"}},
+                    {"skills", new List<string> {"programming"}},
+                    {"ids", new List<string>()}
                 }
             });
             Assert.NotNull(optionsObject);
             Assert.Equal("tarik", optionsObject.Name);
             Assert.Equal(33, optionsObject.Age);
             Assert.True(optionsObject.Male);
+            Assert.Equal(new List<string> {"usa", "germany", "turkey"}, optionsObject.Countries);
+            Assert.Equal(new List<int> {2, 3, 4}, optionsObject.Scores);
+            IReadOnlyList<string> expectedSkills = new List<string>() {"programming"};
+            Assert.Equal(expectedSkills, optionsObject.Skills);
+            Assert.Null(optionsObject.Ids);
         }
 
         [Fact]
@@ -34,11 +43,11 @@ namespace CommandCore.Library.UnitTests
             var optionsObject = (TestOptions) parser.CreatePopulatedOptionsObject(typeof(TestVerb), new ParsedVerb()
             {
                 VerbName = "TestVerb",
-                Options = new Dictionary<string, string>()
+                Options = new Dictionary<string, List<string>>()
                 {
-                    {"Name", "tarik"},
-                    {"age", "33"},
-                    {"ismale", "true"}
+                    {"Name", new List<string> {"tarik"}},
+                    {"age", new List<string> {"33"}},
+                    {"ismale", new List<string> {"true"}}
                 }
             });
             Assert.NotNull(optionsObject);
@@ -54,7 +63,7 @@ namespace CommandCore.Library.UnitTests
             var optionsObject = (TestOptions) parser.CreatePopulatedOptionsObject(typeof(TestVerb), new ParsedVerb()
             {
                 VerbName = "TestVerb",
-                Options = new Dictionary<string, string>()
+                Options = new Dictionary<string, List<string>>()
             });
             Assert.NotNull(optionsObject);
             Assert.Null(optionsObject.Name);
@@ -69,11 +78,11 @@ namespace CommandCore.Library.UnitTests
             var optionsObject = (TestOptions) parser.CreatePopulatedOptionsObject(typeof(TestVerb), new ParsedVerb()
             {
                 VerbName = "TestVerb",
-                Options = new Dictionary<string, string>()
+                Options = new Dictionary<string, List<string>>()
                 {
-                    {"n", "tarik"},
-                    {"a", "33"},
-                    {"m", "true"}
+                    {"n", new List<string> {"tarik"}},
+                    {"a", new List<string> {"33"}},
+                    {"m", new List<string> {"true"}}
                 }
             });
             Assert.NotNull(optionsObject);
@@ -90,9 +99,9 @@ namespace CommandCore.Library.UnitTests
                 new ParsedVerb()
                 {
                     VerbName = "TestVerb",
-                    Options = new Dictionary<string, string>
+                    Options = new Dictionary<string, List<string>>
                     {
-                        {"Money", "12.55"}
+                        {"Money", new List<string> {"12.55"}}
                     }
                 });
 
@@ -107,11 +116,11 @@ namespace CommandCore.Library.UnitTests
             var optionsObject = (TestOptions) parser.CreatePopulatedOptionsObject(typeof(TestVerb), new ParsedVerb()
             {
                 VerbName = "TestVerb",
-                Options = new Dictionary<string, string>()
+                Options = new Dictionary<string, List<string>>()
                 {
-                    {"fn", "tarik"},
-                    {"a", "33"},
-                    {"im", "true"}
+                    {"fn", new List<string> {"tarik"}},
+                    {"a", new List<string> {"33"}},
+                    {"im", new List<string> {"true"}}
                 }
             });
             Assert.NotNull(optionsObject);

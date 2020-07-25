@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using CommandCore.Library.Interfaces;
 
 namespace CommandCore.Library
@@ -11,7 +12,7 @@ namespace CommandCore.Library
             {
                 return new ParsedVerb() {VerbName = "default"};
             }
-            
+
             var argumentsClone = (string[]) arguments.Clone();
             var parsedVerb = new ParsedVerb();
 
@@ -33,25 +34,18 @@ namespace CommandCore.Library
                 return parsedVerb;
             }
 
-            var options = new Dictionary<string, string>();
+            var options = new Dictionary<string, List<string>>();
 
             for (int i = startingPoint; i < arguments.Length; i++)
             {
-                if (arguments[i].StartsWith("-"))
+                var arg = arguments[i];
+                if (arg.StartsWith("-") || arg.StartsWith("--"))
                 {
-                    // Checking if the option is with a value like --name "Tarik" or -n "Tarik"
-                    if (arguments.Length - 1 >= i + 1 && !arguments[i + 1].StartsWith("-"))
-                    {
-                        options[arguments[i].TrimStart('-')] = arguments[i + 1];
-                        // We already captured the value which is the next item in the array, so we can skip it.
-                        i++;
-                    }
-                    // Checking if the option is a flag like --visible or -v, which is automatically inferred as --visible
-                    // true. If the --argument is the last item or a value does not follow it, it means it is a flag.
-                    else if (arguments.Length - 1 == i || arguments[i + 1].StartsWith("-"))
-                    {
-                        options[arguments[i].TrimStart('-')] = "true";
-                    }
+                    options.Add(arg.Trim('-'), new List<string>());
+                }
+                else
+                {
+                    options[options.Keys.Last()].Add(arg);
                 }
             }
 

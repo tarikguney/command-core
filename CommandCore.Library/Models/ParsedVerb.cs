@@ -6,5 +6,5 @@ public class ParsedVerb
 
     // ToDo: Ideally the value should be anything. I don't know how I should design this right now. 
     // The reason is simple: Some arguments are flag attributes.
-    public IReadOnlyDictionary<string, string>? Options { get; set; }
+    public IReadOnlyDictionary<string, List<string>>? Options { get; set; }
 }
