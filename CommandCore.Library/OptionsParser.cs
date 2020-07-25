@@ -46,6 +46,9 @@ namespace CommandCore.Library
                 {
                     var argumentValues = parsedVerb.Options[parameterName];
 
+                    // I am aware of the relative complexity of the following big ass if conditions. I will simplify
+                    // it one, hopefully. But the idea is simple: A property type may be an array, a collection, or a scalar type.
+                    // And, we are paring them accordingly.
                     var propType = propertyInfo.PropertyType;
                     if (propType.IsArray)
                     {
