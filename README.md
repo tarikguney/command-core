@@ -13,6 +13,10 @@ There are many command line parsing libraries out there, but most of them are un
 
 Check out the [WIKI page](https://github.com/tarikguney/command-core/wiki) to learn more on how to get started with CommandCore!
 
+## Release Changelog
+
+Check out this page to see what's changed with every new release: https://github.com/tarikguney/command-core/wiki/Changelog
+
 ## Quick Look
 
 If you are familar with MVC pattern in any framework, you will find CommandCore very familiar with them. Look at below to see how a simple command like the one below can be represented in your .NET application:
