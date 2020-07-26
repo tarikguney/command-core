@@ -61,7 +61,7 @@ namespace CommandCore.Library
             // Running the view to render the result to the console (stdout).
             // This could be a good extension point for various redirections.
             view.RenderResponse();
-            return 0;
+            return Environment.ExitCode;
         }
     }
 }
