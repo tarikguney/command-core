@@ -19,19 +19,7 @@ namespace CommandCore.LightIoC
         /// <exception cref="InvalidOperationException">If the concrete type is not instantiable. For instance, using an abstract class for the concrete type throws this exception.</exception>
         public void Register<S, T>()
         {
-            if (typeof(T).IsAbstract)
-            {
-                throw new InvalidOperationException(
-                    $"Type {typeof(T).FullName} may not be abstract. Abstract classes cannot be instantiated, hence not allowed to be registered.");
-            }
-            
-            if (!typeof(S).IsAssignableFrom(typeof(T)))
-            {
-                throw new InvalidOperationException(
-                    $"Type {typeof(T).FullName} is not assignable to {typeof(S).FullName}");
-            }
-
-            _typeRegistry[typeof(S)] = typeof(T);
+            Register(typeof(S), typeof(T));
         }
 
         public void Register(Type service, Type implementation)
